@@ -5,6 +5,7 @@ using UnityEngine;
 public class CuteController : MonoBehaviour
 {
     
+    private bool isKeyPressed;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,16 @@ public class CuteController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Rotate(0,20*Time.deltaTime,0);
+         if (Input.GetKeyDown("space"))
+        {
+            print("space key was pressed");
+            this.isKeyPressed = true;
+            
+        }
+
+        if (isKeyPressed)
+        this.transform.Rotate(0,50*Time.deltaTime,0);            
+
+        
     }
 }
