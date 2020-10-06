@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody body;
     public float speed;
 
+    public GameObject pickup;
+
     private int count;
 
     public Text TextCount;
@@ -29,11 +31,27 @@ public class PlayerController : MonoBehaviour
         body.AddForce(moment*speed);
       
 
+
     }
     // Update is called once per frame
     void Update()
     {
         
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
+
+            Ray  ray = Camera.main.ScreenPointToRay(mousePos);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray,out hit,1000f))
+            {
+
+                Instantiate(pickup,new Vector3(hit.point.x,0.5f, hit.point.z),Quaternion.identity);
+            }
+
+            
+        }
     }
 
   void OnTriggerEnter(Collider collider)

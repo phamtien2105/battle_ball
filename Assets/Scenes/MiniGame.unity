@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &239447975
 Transform:
   m_ObjectHideFlags: 0
@@ -1384,6 +1384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  pickup: {fileID: 7274015929936933098, guid: 5b10c20992691df4fba76a8250faa811, type: 3}
   TextCount: {fileID: 328073139}
 --- !u!54 &1370781403
 Rigidbody:
