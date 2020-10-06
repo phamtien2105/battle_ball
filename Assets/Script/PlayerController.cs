@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,9 +10,15 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody body;
     public float speed;
+
+    private int count;
+
+    public Text TextCount;
     void Start()
     {
        body  = this.GetComponent<Rigidbody>();
+       count = 0;
+       TextCount.text ="Count: " + count;
     }
 
     void FixedUpdate()
@@ -27,4 +35,19 @@ public class PlayerController : MonoBehaviour
     {
         
     }
+
+  void OnTriggerEnter(Collider collider)
+  {
+      if (collider.gameObject.CompareTag("pickup"))
+      {
+
+            // Destroy(collider.gameObject);
+            collider.gameObject.SetActive(false);
+            count++;
+            TextCount.text ="Count: " + count;
+      }
+
+      
+  }
+
 }
