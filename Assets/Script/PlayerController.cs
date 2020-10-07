@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 moment= new Vector3(moveHorizontal,0.0f,moveVertical);
-        body.AddForce(moment*speed);
-      
+
+        if(!AnimatorIsPlaying("Player_idle"))
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector3 moment= new Vector3(moveHorizontal,0.0f,moveVertical);
+            body.AddForce(moment*speed);
+        }
       if(targetPicker==null && queuePicker.Count!=0)
             targetPicker = queuePicker.Dequeue();
 
@@ -64,12 +67,22 @@ public class PlayerController : MonoBehaviour
             }            
         }
 
-       if (targetPicker!= null)
+        Debug.Log("start : " + AnimatorIsPlaying("Player_idle"));
+
+       if (targetPicker!= null&& !AnimatorIsPlaying("Player_idle"))
             transform.position = Vector3.MoveTowards(transform.position, 
             targetPicker.transform.position, 1.5f*Time.deltaTime);
 
         // }
     }
+ bool AnimatorIsPlaying(string stateName){
+     return AnimatorIsPlaying() && GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(stateName);
+  }
+    bool AnimatorIsPlaying(){
+     return GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length >
+            GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+  }
+
 
   void OnTriggerEnter(Collider collider)
   {
