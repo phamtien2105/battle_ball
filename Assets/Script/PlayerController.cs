@@ -87,8 +87,9 @@ public class PlayerController : MonoBehaviour
   void OnTriggerEnter(Collider collider)
   {
       if (collider.gameObject.CompareTag("pickup"))
-      {         
-        Destroy(collider.gameObject);
+      { 
+
+        collider.gameObject.GetComponent<Animator>().SetTrigger("isDie");       
         count++;
         TextCount.text ="Count: " + count;
       }
