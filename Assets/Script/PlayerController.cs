@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
        if (targetPicker!= null)
             transform.position = Vector3.MoveTowards(transform.position, 
-            targetPicker.transform.position, 2.5f*Time.deltaTime);
+            targetPicker.transform.position, 1.5f*Time.deltaTime);
 
         // }
     }
