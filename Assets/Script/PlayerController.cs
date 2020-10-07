@@ -16,11 +16,16 @@ public class PlayerController : MonoBehaviour
     private int count;
 
     public Text TextCount;
+
+    private Queue<GameObject> queuePicker;
+
+    private GameObject targetPicker;
     void Start()
     {
        body  = this.GetComponent<Rigidbody>();
        count = 0;
        TextCount.text ="Count: " + count;
+       queuePicker= new Queue<GameObject>();
     }
 
     void FixedUpdate()
@@ -30,6 +35,8 @@ public class PlayerController : MonoBehaviour
         Vector3 moment= new Vector3(moveHorizontal,0.0f,moveVertical);
         body.AddForce(moment*speed);
       
+      if(targetPicker==null && queuePicker.Count!=0)
+            targetPicker = queuePicker.Dequeue();
 
 
     }
@@ -47,22 +54,25 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray,out hit,1000f))
             {
 
-                Instantiate(pickup,new Vector3(hit.point.x,0.5f, hit.point.z),Quaternion.identity);
-            }
-
-            
+               GameObject picker =  Instantiate(pickup,new Vector3(hit.point.x,0.5f, hit.point.z),Quaternion.identity);
+               queuePicker.Enqueue(picker);
+            }            
         }
+
+       if (targetPicker!= null)
+            transform.position = Vector3.MoveTowards(transform.position, 
+            targetPicker.transform.position, 2.5f*Time.deltaTime);
+
+        // }
     }
 
   void OnTriggerEnter(Collider collider)
   {
       if (collider.gameObject.CompareTag("pickup"))
-      {
-
-            // Destroy(collider.gameObject);
-            collider.gameObject.SetActive(false);
-            count++;
-            TextCount.text ="Count: " + count;
+      {         
+        Destroy(collider.gameObject);
+        count++;
+        TextCount.text ="Count: " + count;
       }
 
       
