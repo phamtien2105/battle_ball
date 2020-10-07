@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
        count = 0;
        TextCount.text ="Count: " + count;
        queuePicker= new Queue<GameObject>();
+
     }
 
     void FixedUpdate()
@@ -55,6 +56,10 @@ public class PlayerController : MonoBehaviour
             {
 
                GameObject picker =  Instantiate(pickup,new Vector3(hit.point.x,0.5f, hit.point.z),Quaternion.identity);
+               //set color by enable animator layer
+              
+               int randomColorLayerIndex = Random.Range(1,4);
+               picker.GetComponent<Animator>().SetLayerWeight(randomColorLayerIndex,1);
                queuePicker.Enqueue(picker);
             }            
         }
