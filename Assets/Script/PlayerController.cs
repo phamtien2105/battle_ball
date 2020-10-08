@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if(!AnimatorIsPlaying("Player_idle"))
+        if(!AnimatorIsPlaying("idle"))
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
@@ -67,11 +67,19 @@ public class PlayerController : MonoBehaviour
             }            
         }
 
-        Debug.Log("start : " + AnimatorIsPlaying("Player_idle"));
+       
 
-       if (targetPicker!= null&& !AnimatorIsPlaying("Player_idle"))
+       if (targetPicker!= null)
+       {
+           GetComponent<Animator>().SetBool("isWalk",true);
             transform.position = Vector3.MoveTowards(transform.position, 
             targetPicker.transform.position, 1.5f*Time.deltaTime);
+             Vector3 rotationDestination = targetPicker.transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6.0f);
+       }
+       else
+       GetComponent<Animator>().SetBool("isWalk",false);
 
         // }
     }
