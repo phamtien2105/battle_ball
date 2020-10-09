@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6.0f);
        }
-       else
+       else if (queuePicker.Count == 0)
        GetComponent<Animator>().SetBool("isWalk",false);
 
         // }
