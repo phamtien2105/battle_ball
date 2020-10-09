@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
        
 
-       if (targetPicker!= null)
+       if (targetPicker!= null && !GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("die"))
        {
            GetComponent<Animator>().SetBool("isWalk",true);
             transform.position = Vector3.MoveTowards(transform.position, 
