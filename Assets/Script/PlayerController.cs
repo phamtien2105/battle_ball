@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody body;
     public float speed;
 
+    public GameObject Player;
+
     public GameObject pickup;
 
     private int count;
@@ -32,13 +34,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if(!AnimatorIsPlaying("idle"))
-        {
+        
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
             Vector3 moment= new Vector3(moveHorizontal,0.0f,moveVertical);
             body.AddForce(moment*speed);
-        }
+        
       if(targetPicker==null && queuePicker.Count!=0)
             targetPicker = queuePicker.Dequeue();
 
@@ -63,6 +64,10 @@ public class PlayerController : MonoBehaviour
               
                int randomColorLayerIndex = Random.Range(1,4);
                picker.GetComponent<Animator>().SetLayerWeight(randomColorLayerIndex,1);
+               if(randomColorLayerIndex==1)
+               {
+                   picker.tag="enermy";
+               }
                queuePicker.Enqueue(picker);
             }            
         }
@@ -83,26 +88,36 @@ public class PlayerController : MonoBehaviour
 
         // }
     }
- bool AnimatorIsPlaying(string stateName){
-     return AnimatorIsPlaying() && GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(stateName);
-  }
-    bool AnimatorIsPlaying(){
-     return GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length >
-            GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
-  }
-
 
   void OnTriggerEnter(Collider collider)
   {
       if (collider.gameObject.CompareTag("pickup"))
       { 
 
-        collider.gameObject.GetComponent<Animator>().SetTrigger("isDie");       
+        collider.gameObject.GetComponent<Animator>().SetBool("isDie",true);       
         count++;
         TextCount.text ="Count: " + count;
-      }
-
+    }
+    else if (collider.gameObject.CompareTag("enermy"))  
+    {
+        collider.gameObject.GetComponent<Animator>().SetBool("isDie",true); 
+       
+       this.gameObject.GetComponent<Animator>().SetBool("isDie",true); 
+        StartCoroutine(diePlayer(9));
+        
+        
+        // this.gameObject.SetActive(true);
+    }
       
   }
+  
+    private IEnumerator diePlayer(int second)
+    {
+        yield return new WaitForSeconds(second);
+        Debug.Log("tien debug deactive player");
+        this.gameObject.GetComponent<Animator>().SetBool("isDie",false);     
+    }
+
+  
 
 }

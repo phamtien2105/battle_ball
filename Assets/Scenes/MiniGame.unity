@@ -1346,6 +1346,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1240443393}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1399101221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2028831965978263870, guid: fc3dc9de88b28984cac6343d604fd06c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1217856724664193501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1399101222
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399101221}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1541812402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,11 +1785,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 7274015929936933108, guid: 5b10c20992691df4fba76a8250faa811,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9db5592edda9284d8ee0f766fd1eddd, type: 2}
     - target: {fileID: 7274015929936933110, guid: 5b10c20992691df4fba76a8250faa811,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2049,7 +2064,7 @@ PrefabInstance:
     - target: {fileID: 4556153938210632429, guid: fc3dc9de88b28984cac6343d604fd06c,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc3dc9de88b28984cac6343d604fd06c, type: 3}
