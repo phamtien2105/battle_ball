@@ -2018,6 +2018,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5513503277462197575, guid: 3ac5b2aca86d8f54dbac1c9b5c4b4a22,
         type: 3}
+    - target: {fileID: 155161912, guid: fc3dc9de88b28984cac6343d604fd06c, type: 3}
+      propertyPath: FireExplotion
+      value: 
+      objectReference: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
+        type: 3}
     - target: {fileID: 1399101222, guid: fc3dc9de88b28984cac6343d604fd06c, type: 3}
       propertyPath: m_IsTrigger
       value: 1

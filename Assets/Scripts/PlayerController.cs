@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private Queue<GameObject> queuePicker;
 
     private GameObject targetPicker;
+
+    public ParticleSystem FireExplotion;
     void Start()
     {
         body = this.GetComponent<Rigidbody>();
@@ -68,8 +70,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    picker = Instantiate(pickupEnermy, new Vector3(hit.point.x,0.5f, hit.point.z), Quaternion.identity);
-                    picker.tag="enermy";
+                    picker = Instantiate(pickupEnermy, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                    picker.tag = "enermy";
                 }
 
                 queuePicker.Enqueue(picker);
@@ -104,11 +106,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("enermy"))
         {
-            
-           collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
 
+            //collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
+            ParticleSystem fireObject = Instantiate(FireExplotion, collider.transform.position, collider.transform.rotation);
             this.gameObject.GetComponent<Animator>().SetBool("isDie", true);
             StartCoroutine(diePlayer(9));
+            Destroy(collider.gameObject);
 
 
             // this.gameObject.SetActive(true);
