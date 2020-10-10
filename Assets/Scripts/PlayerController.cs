@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody body;
     public float speed;
 
+    public Image HeadthBar;
+
     public GameObject pickup;
     public GameObject pickupEnermy;
 
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0) && Time.timeScale!=0f)
+        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
         {
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 
@@ -106,14 +108,16 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("enermy"))
         {
-
-            //collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
-            ParticleSystem fireObject = Instantiate(FireExplotion, collider.transform.position, collider.transform.rotation);
-            this.gameObject.GetComponent<Animator>().SetBool("isDie", true);
-            StartCoroutine(diePlayer(9));
+            HeadthBar.fillAmount -= 0.1f;            
             Destroy(collider.gameObject);
 
-
+            if (HeadthBar.fillAmount == 0)
+            {
+                //collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
+                ParticleSystem fireObject = Instantiate(FireExplotion, collider.transform.position, collider.transform.rotation);
+                this.gameObject.GetComponent<Animator>().SetBool("isDie", true);
+                StartCoroutine(diePlayer(9));
+            }
             // this.gameObject.SetActive(true);
         }
 
