@@ -104,8 +104,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("enermy"))
         {
-            Debug.Log("tien debug collision vs");
-            collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
+            
+           collider.gameObject.GetComponent<Animator>().SetBool("isDie", true);
 
             this.gameObject.GetComponent<Animator>().SetBool("isDie", true);
             StartCoroutine(diePlayer(9));
