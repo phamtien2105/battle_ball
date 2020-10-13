@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 1000f, enermy_mask))
             {
 
-                Instantiate(Enermy, new Vector3(hit.point.x, 0.1f, hit.point.z), Quaternion.identity);
+                Instantiate(Enermy, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
             }
             else if (Physics.Raycast(ray, out hit, 1000f, layer_mask))
             {
