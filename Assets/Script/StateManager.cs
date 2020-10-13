@@ -8,7 +8,7 @@ public class StateManager : MonoBehaviour
     void Start()
     {
         Debug.Log("change alpha");
-     
+         
 
     }
 
