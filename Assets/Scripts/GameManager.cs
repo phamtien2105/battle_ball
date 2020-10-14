@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 if (AttackerManager.GetComponent<EnergyController>().getCurrentEngery() >= attackerCost)
                 {
                     AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
-                    GameObject attacker = Instantiate(Enermy, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                    GameObject attacker = Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
                     listAttacker.Add(attacker);
                 }
 
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
                 if (PlayerManager.GetComponent<EnergyController>().getCurrentEngery() >= playerCost)
                 {
                     PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
-                    GameObject player = Instantiate(Player, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                    GameObject player = Instantiate(Player, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
                     listPlayer.Add(player);
                 }
             }

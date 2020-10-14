@@ -14,7 +14,7 @@ public class DetectAreaController : MonoBehaviour
 
         this.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
         float radius = plane.GetComponent<Renderer>().bounds.size.x * 0.35f;
-        transform.localScale += new Vector3(radius, 0, radius);
+        this.transform.localScale += new Vector3(radius, 0, radius);
     }
 
     // Update is called once per frame
