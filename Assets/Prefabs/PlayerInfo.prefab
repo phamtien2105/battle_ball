@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 5457100354672573763}
   - component: {fileID: 5457100354672573762}
   - component: {fileID: 8244331996336347544}
+  - component: {fileID: 318040166}
   m_Layer: 5
   m_Name: PlayerInfo
   m_TagString: Untagged
@@ -257,6 +258,25 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &318040166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457100354672573760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55807e45a3aea74aa244764a215d3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listEnergyItem:
+  - {fileID: 949547829608333358}
+  - {fileID: 3185606215743373392}
+  - {fileID: 1886838467649428436}
+  - {fileID: 3057590965521110845}
+  - {fileID: 4602140499360617482}
+  - {fileID: 4218887555815882284}
 --- !u!1 &5457100354931686080
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +630,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 74189896464500771}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4218887555815882284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 74189896464500771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &312431549991363077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -740,6 +766,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 312431549991363077}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4602140499360617482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 312431549991363077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1289527547140006194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -862,6 +894,12 @@ PrefabInstance:
 --- !u!224 &7735096072925142297 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 1289527547140006194}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3057590965521110845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
     type: 3}
   m_PrefabInstance: {fileID: 1289527547140006194}
   m_PrefabAsset: {fileID: 0}
@@ -990,6 +1028,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1710918475513411167}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3185606215743373392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 1710918475513411167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2424213298481294811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,6 +1153,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 218a5b8a1233954488d1e3e456a04239, type: 3}
+--- !u!1 &1886838467649428436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 2424213298481294811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6564365596692435440 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
@@ -1239,6 +1289,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 218a5b8a1233954488d1e3e456a04239, type: 3}
+--- !u!1 &949547829608333358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
+    type: 3}
+  m_PrefabInstance: {fileID: 3937997686766335521}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5484067774166780426 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,

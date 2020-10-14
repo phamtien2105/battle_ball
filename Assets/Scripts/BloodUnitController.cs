@@ -8,15 +8,17 @@ public class BloodUnitController : MonoBehaviour
     // Start is called before the first frame update
 
     private Image image;
-    private float Max = 5;
-    private float value = 0.5f;
     float current;
 
     void Start()
     {
         current = 0;
         image = this.GetComponent<Image>();
-        StartCoroutine("inCreaseEnergy");
+        var tempColor = image.color;
+        tempColor.a = 0;
+        image.color = tempColor;
+        image.fillAmount = 1;
+
     }
 
     // Update is called once per frame
@@ -24,40 +26,28 @@ public class BloodUnitController : MonoBehaviour
     {
 
 
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            inCreaseEnergy(0.5f);
+        }
     }
 
-    IEnumerator inCreaseEnergy()
+
+    public void inCreaseEnergy(float value)
     {
 
-        float normalizedTime = 0f;
-        //filled energy in 20s
-        float duration = Max / value;
-        while (normalizedTime <= 1f)
-        {
 
-            normalizedTime += Time.deltaTime / duration;
+        current += value;
+        var tempColor = image.color;
 
-            var tempColor = image.color;
-            tempColor.a = (byte)((normalizedTime * 255));
-            image.color = tempColor;
-            image.fillAmount = normalizedTime;
-            yield return null;
-        }
+        image.color = new Color(tempColor.r , tempColor.g ,
+         tempColor.b , current/EnergyController.CapPerUnit);
+        image.fillAmount = current / EnergyController.CapPerUnit;
 
-        // Debug.Log("tien debug deactive player");
-        // if (current < Max)
-        // {
-        //     yield return new WaitForSeconds(1.0f);
-        //     current += 0.5f;
-        //     this.GetComponent<Image>().color = new Color32(255, 0, 0, (byte)((current * 255) / Max));
-        //     this.GetComponent<Image>().fillAmount = current / Max;
-
-
-        // }
-        // else current = Max;
-
+        Debug.Log("tang mau" + tempColor);
     }
+
+
 
 
 }
