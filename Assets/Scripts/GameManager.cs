@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     // true is player attach. false attcker is attck
     private bool isPlayerAttach;
 
+    private bool isBallCreate;
     private bool isKeyPressed;
     // Start is called before the first frame update
     void Start()
@@ -81,22 +82,32 @@ public class GameManager : MonoBehaviour
 
         }
 
+        // find ball
+
+
+
     }
 
 
     private void genertateBall()
     {
 
+        GameObject ball;
         if (isPlayerAttach)
         {
 
-            Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
+            ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
 
         }
         else
         {
-            Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
+            ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
         }
+
+        isBallCreate = true;
+        StateManager.isBallAvaiable = true;
+        StateManager.BallPosition = ball.transform.position;
+
     }
 
 }

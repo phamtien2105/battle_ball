@@ -10,6 +10,10 @@ public class StateManager : MonoBehaviour
     public float CostEnergy;
     public float InActiveTime;
 
+    public static bool isBallAvaiable;
+    public static Vector3 BallPosition;
+    
+
     void Start()
     {
         StartCoroutine("changeToDefendState", InActiveTime);
@@ -19,7 +23,8 @@ public class StateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (isBallAvaiable)
+            chaseBall();
     }
 
 
@@ -29,5 +34,14 @@ public class StateManager : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("isDefend");
         //enable detect area
         gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
+    }
+
+    public void chaseBall()
+    {
+        transform.position = Vector3.MoveTowards(transform.position,
+                   BallPosition, 1.5f * Time.deltaTime);
+        Vector3 rotationDestination = BallPosition;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6.0f);
     }
 }
