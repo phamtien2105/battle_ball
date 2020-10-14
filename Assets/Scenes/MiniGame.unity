@@ -1479,6 +1479,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 64601038}
     m_Modifications:
+    - target: {fileID: 3024868626617628393, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5457100354672573760, guid: d146364d4f2dee34987b34e6fafdc39d,
         type: 3}
       propertyPath: m_Name
@@ -1589,6 +1594,46 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5457100354931686081, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457100354931686081, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457100354931686081, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457100354931686081, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101909891863339419, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101909891863339419, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101909891863339419, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101909891863339419, guid: d146364d4f2dee34987b34e6fafdc39d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d146364d4f2dee34987b34e6fafdc39d, type: 3}
 --- !u!224 &1471078816 stripped
@@ -1693,6 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8342a4749bfb5074b888756a799e6fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CountText: {fileID: 1083206813}
   Player: {fileID: 1933037013}
   Enermy: {fileID: 1790810998}
 --- !u!1 &1632741935
