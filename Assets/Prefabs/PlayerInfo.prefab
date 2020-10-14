@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8392157, g: 0.8392157, b: 0.8392157, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -495,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_1
+      value: BloodUnitGreen_6
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
@@ -625,7 +625,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_2
+      value: BloodUnitGreen_5
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
@@ -750,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_3
+      value: BloodUnitGreen_4
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
@@ -875,7 +875,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_5
+      value: BloodUnitGreen_2
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
@@ -1000,7 +1000,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_4
+      value: BloodUnitGreen_3
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
@@ -1125,7 +1125,7 @@ PrefabInstance:
     - target: {fileID: 4290783311850649103, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
       propertyPath: m_Name
-      value: BloodUnitGreen_6
+      value: BloodUnitGreen_1
       objectReference: {fileID: 0}
     - target: {fileID: 8844443623746747435, guid: 218a5b8a1233954488d1e3e456a04239,
         type: 3}
