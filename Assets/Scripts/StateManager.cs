@@ -11,11 +11,16 @@ public class StateManager : MonoBehaviour
     public float CostEnergy;
     public float InActiveTime;
 
+    public float SpeedWithBall;
+
     public static bool isBallAvaiable;
+
+    public bool isHoldBall;
     public static Vector3 BallPosition;
 
     private EnumMode MyEnumMode;
 
+    public GameObject TargetGate;
 
 
     void Start()
@@ -30,6 +35,10 @@ public class StateManager : MonoBehaviour
     {
 
         chaseBall();
+        if (isHoldBall)
+        {
+            MoveToGate();
+        }
 
     }
 
@@ -61,6 +70,18 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    private void MoveToGate()
+    {
+
+
+        transform.position = Vector3.MoveTowards(transform.position,
+                   TargetGate.transform.position, 1.5f * Time.deltaTime);
+        Vector3 rotationDestination = TargetGate.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
+
+    }
+
     public void onExitInactive()
     {
         //enable detect area
@@ -68,7 +89,7 @@ public class StateManager : MonoBehaviour
             gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
         else
         {
-          
+
             gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
             gameObject.transform.Find("RedTriangle").gameObject.SetActive(true);
         }
@@ -79,5 +100,19 @@ public class StateManager : MonoBehaviour
     public void setEnumMode(EnumMode mode)
     {
         this.MyEnumMode = mode;
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log("hit ball");
+        if (collider.gameObject.CompareTag("Ball"))
+        {
+            
+            StateManager.isBallAvaiable = false;
+            isHoldBall = true;
+            collider.gameObject.transform.parent = gameObject.transform;
+
+
+        }
     }
 }
