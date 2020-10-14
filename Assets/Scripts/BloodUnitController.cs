@@ -26,10 +26,6 @@ public class BloodUnitController : MonoBehaviour
     {
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            inCreaseEnergy(0.5f);
-        }
     }
 
 
