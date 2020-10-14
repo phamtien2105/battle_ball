@@ -1482,7 +1482,7 @@ PrefabInstance:
     - target: {fileID: 3024868626617628393, guid: d146364d4f2dee34987b34e6fafdc39d,
         type: 3}
       propertyPath: m_FillAmount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5457100354672573760, guid: d146364d4f2dee34987b34e6fafdc39d,
         type: 3}
@@ -2566,6 +2566,16 @@ PrefabInstance:
     - target: {fileID: 4012287825041460618, guid: a0c3ebf9055416e4580437443e3f2d3e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022869956266536201, guid: a0c3ebf9055416e4580437443e3f2d3e,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022869956266536201, guid: a0c3ebf9055416e4580437443e3f2d3e,
+        type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
