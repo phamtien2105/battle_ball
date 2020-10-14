@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CostEnergy: 3
+  InActiveTime: 0.5
 --- !u!95 &1933037015
 Animator:
   serializedVersion: 3
@@ -207,6 +208,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HighLight
       objectReference: {fileID: 0}
+    - target: {fileID: 3269913297774985759, guid: f23455b1e3ab42e46be4d9e92a9151e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f23455b1e3ab42e46be4d9e92a9151e9, type: 3}
 --- !u!4 &4437695553435112350 stripped
@@ -281,6 +287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedTriangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267255506796953788, guid: dfa6dd6b43965db439744efc7d77b26c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa6dd6b43965db439744efc7d77b26c, type: 3}
@@ -366,6 +377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DetectArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910155000038387804, guid: be00edf3e03c8cb40bec420df6c4f2dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be00edf3e03c8cb40bec420df6c4f2dd, type: 3}
