@@ -13,11 +13,7 @@ public class BloodUnitController : MonoBehaviour
     void Start()
     {
         current = 0;
-        image = this.GetComponent<Image>();
-        var tempColor = image.color;
-        tempColor.a = 0;
-        image.color = tempColor;
-        image.fillAmount = 1;
+        this.resetEmpty();
 
     }
 
@@ -31,18 +27,23 @@ public class BloodUnitController : MonoBehaviour
 
     public void inCreaseEnergy(float value)
     {
-
-
         current += value;
         var tempColor = image.color;
 
-        image.color = new Color(tempColor.r , tempColor.g ,
-         tempColor.b , current/EnergyController.CapPerUnit);
+        image.color = new Color(tempColor.r, tempColor.g,
+         tempColor.b, current / EnergyController.CapPerUnit);
         image.fillAmount = current / EnergyController.CapPerUnit;
-
-        Debug.Log("tang mau" + tempColor);
     }
 
+    public void resetEmpty()
+    {
+        current = 0;
+        image = this.GetComponent<Image>();
+        var tempColor = image.color;
+        tempColor.a = 0;
+        image.color = tempColor;
+        image.fillAmount = 0;
+    }
 
 
 

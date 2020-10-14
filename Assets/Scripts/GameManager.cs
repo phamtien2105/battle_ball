@@ -11,12 +11,21 @@ public class GameManager : MonoBehaviour
     private float timer;
     public GameObject Player;
     public GameObject Enermy;
+
+    private List<GameObject> listPlayer;
+    private List<GameObject> listAttacker;
+
+    public GameObject PlayerManager;
+    public GameObject AttackerManager;
+
     private bool isKeyPressed;
     // Start is called before the first frame update
     void Start()
     {
         CountText.text = "0s";
         timer = 0;
+        listPlayer = new List<GameObject>();
+        listAttacker = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -41,15 +50,32 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 1000f, enermy_mask))
             {
 
-                Instantiate(Enermy, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                float attackerCost = Enermy.GetComponent<StateManager>().CostEnergy;
+
+                if (AttackerManager.GetComponent<EnergyController>().getCurrentEngery() >= attackerCost)
+                {
+                    AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
+                    GameObject attacker = Instantiate(Enermy, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                    listAttacker.Add(attacker);
+                }
+
             }
             else if (Physics.Raycast(ray, out hit, 1000f, layer_mask))
             {
-                Instantiate(Player, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
-            }
+                float playerCost = Player.GetComponent<StateManager>().CostEnergy;
 
+                if (PlayerManager.GetComponent<EnergyController>().getCurrentEngery() >= playerCost)
+                {
+                    PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
+                    GameObject player = Instantiate(Player, new Vector3(hit.point.x, 0.5f, hit.point.z), Quaternion.identity);
+                    listPlayer.Add(player);
+                }
+            }
 
         }
 
     }
+
+
+
 }

@@ -7,6 +7,8 @@ public class StateManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public float CostEnergy;
+
     void Start()
     {
        
