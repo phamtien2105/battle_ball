@@ -21,15 +21,15 @@ public class StateManager : MonoBehaviour
     void Start()
     {
 
-        MyEnumMode = EnumMode.Defend;
+        MyEnumMode = EnumMode.Attack;
         StartCoroutine("onInactiveState", InActiveTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isBallAvaiable && MyEnumMode == EnumMode.Attack)
-            chaseBall();
+
+        chaseBall();
 
     }
 
@@ -48,7 +48,9 @@ public class StateManager : MonoBehaviour
 
     public void chaseBall()
     {
-        if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("isChase"))
+
+        if (isBallAvaiable && MyEnumMode == EnumMode.Attack
+        && !GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
             transform.position = Vector3.MoveTowards(transform.position,
                        BallPosition, 1.5f * Time.deltaTime);
@@ -58,12 +60,20 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    public void EnableDetectArea()
+    public void onExitInactive()
     {
         //enable detect area
         if (MyEnumMode == EnumMode.Defend)
             gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
+        else
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("isChase");
+            gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
+            gameObject.transform.Find("RedTriangle").gameObject.SetActive(true);
+        }
     }
+
+
 
     public void setEnumMode(EnumMode mode)
     {
