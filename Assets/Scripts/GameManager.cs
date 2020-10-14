@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public Text CountText;
     private float timer;
+
+    public GameObject Ball;
     public GameObject Player;
     public GameObject Enermy;
 
@@ -18,6 +20,9 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerManager;
     public GameObject AttackerManager;
 
+    // true is player attach. false attcker is attck
+    private bool isPlayerAttach;
+
     private bool isKeyPressed;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +31,8 @@ public class GameManager : MonoBehaviour
         timer = 0;
         listPlayer = new List<GameObject>();
         listAttacker = new List<GameObject>();
+        isPlayerAttach = true;
+        genertateBall();
     }
 
     // Update is called once per frame
@@ -77,5 +84,19 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void genertateBall()
+    {
+
+        if (isPlayerAttach)
+        {
+
+            Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
+
+        }
+        else
+        {
+            Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
+        }
+    }
 
 }
