@@ -44,6 +44,7 @@ public class StateManager : MonoBehaviour
             gameObject.GetComponent<Animator>().SetTrigger("isDefend");
 
         }
+        else gameObject.GetComponent<Animator>().SetTrigger("isChase");
     }
 
     public void chaseBall()
@@ -67,7 +68,7 @@ public class StateManager : MonoBehaviour
             gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
         else
         {
-            gameObject.GetComponent<Animator>().SetTrigger("isChase");
+          
             gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
             gameObject.transform.Find("RedTriangle").gameObject.SetActive(true);
         }
