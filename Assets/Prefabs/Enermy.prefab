@@ -133,9 +133,10 @@ MonoBehaviour:
   CostEnergy: 2
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumMode: 0
+  MyEnumMode: 1
   MyKind: 1
   NormalSpeed: 1.5
+  CarryingSpeed: 0.75
 --- !u!54 &1023879503
 Rigidbody:
   m_ObjectHideFlags: 0

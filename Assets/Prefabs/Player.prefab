@@ -114,11 +114,10 @@ MonoBehaviour:
   CostEnergy: 3
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumMode: 1
+  MyEnumMode: 0
   MyKind: 0
-  TargetGate: {fileID: 0}
-  OpponentFence: {fileID: 0}
   NormalSpeed: 1
+  CarryingSpeed: 0.75
 --- !u!95 &1933037015
 Animator:
   serializedVersion: 3

@@ -26,6 +26,7 @@ public class StateManager : MonoBehaviour
     private GameObject OpponentFence;
 
     public float NormalSpeed;
+    public float CarryingSpeed;
 
     private GameObject BallObject;
 
@@ -103,10 +104,10 @@ public class StateManager : MonoBehaviour
     {
         //  Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
-                   TargetGate.transform.position, SpeedWithBall * Time.deltaTime);
+                   TargetGate.transform.position, CarryingSpeed * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CarryingSpeed);
 
 
     }
