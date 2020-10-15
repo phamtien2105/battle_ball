@@ -18,7 +18,6 @@ public class StateMarchineBehaviour : StateMachineBehaviour
         {
             if (animator.gameObject.GetComponent<StateManager>().needToReturnOriginPosition)
             {
-                ;
                 animator.gameObject.GetComponent<StateManager>().returnOriginPosition();
             }
         }

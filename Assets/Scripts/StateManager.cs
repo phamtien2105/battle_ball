@@ -209,44 +209,45 @@ public class StateManager : MonoBehaviour
             collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
         }
 
-        //enermy collision with defender        
-        if (collider.gameObject.GetComponent<StateManager>().MyEnumMode != MyEnumMode)
-        {
-            //2 obj convert to inactive 
-
-
-            if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+        //enermy collision with defender       
+        if (collider.gameObject.GetComponent<StateManager>() != null)
+            if (collider.gameObject.GetComponent<StateManager>().MyEnumMode != MyEnumMode)
             {
-                gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
-                gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+                //2 obj convert to inactive 
+
+
+                if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                {
+                    gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                    gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+
+                }
+                else
+                {
+                    collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                    collider.GetComponent<StateManager>().needCatchAttacker = false;
+                }
+                //reset ball info
+
+                BallObject.transform.parent = null;
+                BallObject.transform.position = new Vector3(0, -2, -10);
+                BallObject.GetComponent<BallController>().isKeep = false;
+                gameObject.GetComponent<StateManager>().isHaveBall = false;
+                collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
+
+
+                gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+                collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+                StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
+                StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime, collider.gameObject));
+
+
+
+                //fake destroy the ball
+
+
 
             }
-            else
-            {
-                collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
-                collider.GetComponent<StateManager>().needCatchAttacker = false;
-            }
-            //reset ball info
-
-            BallObject.transform.parent = null;
-            BallObject.transform.position = new Vector3(0, -2, -10);
-            BallObject.GetComponent<BallController>().isKeep = false;
-            gameObject.GetComponent<StateManager>().isHaveBall = false;
-            collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
-
-
-            gameObject.GetComponent<Animator>().SetTrigger("isInactive");
-            collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
-            StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
-            StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime, collider.gameObject));
-
-
-
-            //fake destroy the ball
-
-
-
-        }
 
 
 
