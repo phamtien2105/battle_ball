@@ -8,6 +8,7 @@ TagManager:
   - Ball
   - Fence
   - Gate
+  - DetectArea
   layers:
   - Default
   - TransparentFX

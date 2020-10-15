@@ -30,6 +30,9 @@ public class StateManager : MonoBehaviour
 
     private GameObject BallObject;
 
+    private bool needCatchAttacker;
+
+    public float ReInactiveTime;
 
     void Start()
     {
@@ -48,6 +51,7 @@ public class StateManager : MonoBehaviour
         }
         //  MyEnumMode = EnumMode.Attack;
         StartCoroutine("onInactiveState", InActiveTime);
+
 
     }
 
@@ -69,6 +73,9 @@ public class StateManager : MonoBehaviour
                 moveToOpponentLand();
             }
 
+            if (needCatchAttacker)
+                catchAttacker();
+
         }
     }
 
@@ -89,14 +96,13 @@ public class StateManager : MonoBehaviour
     public void chaseBall()
     {
 
-        if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumMode.Attack
-        )
+        if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumMode.Attack)
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                       BallObject.transform.position, 1.5f * Time.deltaTime);
+                       BallObject.transform.position, NormalSpeed * Time.deltaTime);
             Vector3 rotationDestination = BallObject.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6.0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
         }
     }
 
@@ -153,7 +159,7 @@ public class StateManager : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         Debug.Log("hit" + collider.gameObject.tag);
-        if (collider.gameObject.CompareTag("Ball"))
+        if (MyEnumMode == EnumMode.Attack && collider.gameObject.CompareTag("Ball"))
         {
             Debug.Log("hit ball");
             collider.gameObject.transform.parent = gameObject.transform;
@@ -176,6 +182,34 @@ public class StateManager : MonoBehaviour
             //destroy attacker if hit to the fence
             Destroy(gameObject);
         }
+        else if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
+        {
 
+            //destroy attacker if hit to the fence
+            collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
+        }
+
+        //enermy collision with defender        
+        if (collider.gameObject.GetComponent<StateManager>().MyEnumMode != MyEnumMode)
+        {
+            //2 obj convert to inactive 
+             gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+             collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+        }
+
+
+
+        //if collection with detecter
+
+    }
+
+    private void catchAttacker()
+    {
+        Debug.Log("defender go to catch emermy");
+        transform.position = Vector3.MoveTowards(transform.position,
+                              BallObject.transform.position, NormalSpeed * Time.deltaTime);
+        Vector3 rotationDestination = BallObject.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
     }
 }
