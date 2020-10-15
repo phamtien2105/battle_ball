@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 352684020}
   m_Layer: 0
   m_Name: wall_top
-  m_TagString: Untagged
+  m_TagString: Fence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1037,10 +1037,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 775162308, guid: 575811749f890024b8046badbe1a0116, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1933037014, guid: 575811749f890024b8046badbe1a0116, type: 3}
       propertyPath: TargetGate
       value: 
@@ -1125,7 +1121,7 @@ GameObject:
   - component: {fileID: 964485402}
   m_Layer: 0
   m_Name: wall_bottom
-  m_TagString: Untagged
+  m_TagString: Fence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1554,10 +1550,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1023879503, guid: 87127139c3257874b9c0f26674f50212, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1466840646100663203, guid: 87127139c3257874b9c0f26674f50212,
         type: 3}
       propertyPath: m_Name
