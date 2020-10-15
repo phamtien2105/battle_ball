@@ -141,5 +141,10 @@ public class StateManager : MonoBehaviour
 
 
         }
+        else if (collider.gameObject.CompareTag("Fence"))
+        {
+            //destroy attacker if hit to the fence
+            Destroy(gameObject);
+        }
     }
 }

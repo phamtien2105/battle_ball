@@ -114,7 +114,7 @@ MonoBehaviour:
   CostEnergy: 3
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumMode: 0
+  MyEnumMode: 1
   MyKind: 0
   TargetGate: {fileID: 0}
   OpponentFence: {fileID: 0}
