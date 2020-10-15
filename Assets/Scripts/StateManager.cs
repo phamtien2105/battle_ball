@@ -8,6 +8,8 @@ public class StateManager : MonoBehaviour
     // Start is called before the first frame update
 
     public enum EnumMode { Attack, Defend };
+
+    public enum EnumKind { Player, Enermy };
     public float CostEnergy;
     public float InActiveTime;
 
@@ -15,21 +17,26 @@ public class StateManager : MonoBehaviour
 
     public static bool isBallAvaiable;
 
-    public bool isHoldBall;
+    //indicate this object keep the ball 
+    private bool isHoldBall;
     public static Vector3 BallPosition;
 
-    private EnumMode MyEnumMode;
+    public EnumMode MyEnumMode;
+
+    public EnumKind MyKind;
 
     public GameObject TargetGate;
 
 
     public GameObject OpponentFence;
 
+    public float NormalSpeed;
+
 
     void Start()
     {
 
-        MyEnumMode = EnumMode.Attack;
+        //  MyEnumMode = EnumMode.Attack;
         StartCoroutine("onInactiveState", InActiveTime);
     }
 
@@ -41,12 +48,11 @@ public class StateManager : MonoBehaviour
         if (isHoldBall)
         {
             // chase ball finish and move other gate
-            moveToGate();
+            moveToOpponentGate();
         }//ball be holded by same attacker-> go to other land
-        else if (StateManager.isBallAvaiable == false &&
-           !isHoldBall)
+        else if (MyEnumMode == EnumMode.Attack && !StateManager.isBallAvaiable && !isHoldBall)
         {
-                moveForwardLand(); 
+            moveToOpponentLand();
         }
 
 
@@ -80,10 +86,8 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    private void moveToGate()
+    private void moveToOpponentGate()
     {
-
-
         transform.position = Vector3.MoveTowards(transform.position,
                    TargetGate.transform.position, 1.5f * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
@@ -93,13 +97,16 @@ public class StateManager : MonoBehaviour
     }
 
 
-    private void moveForwardLand()
+    private void moveToOpponentLand()
     {
-          transform.position = Vector3.MoveTowards(transform.position,
-                   TargetGate.transform.position, 1.5f * Time.deltaTime);
-        Vector3 rotationDestination = TargetGate.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
+
+        if (MyKind == EnumKind.Enermy)
+            transform.position -= new Vector3(0, 0, NormalSpeed * Time.deltaTime);
+        else
+            transform.position += new Vector3(0, 0, NormalSpeed * Time.deltaTime);
+
+
+
     }
 
     public void onExitInactive()

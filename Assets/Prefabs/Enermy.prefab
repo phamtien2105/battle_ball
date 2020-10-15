@@ -133,9 +133,11 @@ MonoBehaviour:
   CostEnergy: 2
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  isHoldBall: 0
+  MyEnumMode: 1
+  MyKind: 1
   TargetGate: {fileID: 0}
   OpponentFence: {fileID: 0}
+  NormalSpeed: 1.5
 --- !u!54 &1023879503
 Rigidbody:
   m_ObjectHideFlags: 0
