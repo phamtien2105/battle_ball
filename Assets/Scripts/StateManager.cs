@@ -23,7 +23,7 @@ public class StateManager : MonoBehaviour
 
     private bool isHaveBall;
 
-    public GameObject OpponentFence;
+    private GameObject OpponentFence;
 
     public float NormalSpeed;
 
@@ -36,9 +36,15 @@ public class StateManager : MonoBehaviour
         BallObject = GameObject.FindWithTag("Ball").gameObject;
 
         if (MyKind == EnumKind.Enermy)
+        {
             TargetGate = GameObject.Find("PlayerGate").gameObject;
+            OpponentFence = GameObject.Find("EnermyFence").gameObject;
+        }
         else
+        {
             TargetGate = GameObject.Find("EnermyGate").gameObject;
+            OpponentFence = GameObject.Find("PlayerFence").gameObject;
+        }
         //  MyEnumMode = EnumMode.Attack;
         StartCoroutine("onInactiveState", InActiveTime);
 
@@ -95,7 +101,7 @@ public class StateManager : MonoBehaviour
 
     private void moveToOpponentGate()
     {
-        Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
+        //  Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
                    TargetGate.transform.position, 1.5f * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
@@ -109,7 +115,7 @@ public class StateManager : MonoBehaviour
     private void moveToOpponentLand()
     {
 
-        Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
+        //  Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
         if (MyKind == EnumKind.Enermy)
             transform.position -= new Vector3(0, 0, NormalSpeed * Time.deltaTime);
         else
@@ -141,10 +147,10 @@ public class StateManager : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("hit ball");
+        Debug.Log("hit" + collider.gameObject.tag);
         if (collider.gameObject.CompareTag("Ball"))
         {
-
+            Debug.Log("hit ball");
             collider.gameObject.transform.parent = gameObject.transform;
 
             BallObject.GetComponent<BallController>().isKeep = true;
@@ -154,6 +160,7 @@ public class StateManager : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("Fence"))
         {
+
             //destroy attacker if hit to the fence
             Destroy(gameObject);
         }

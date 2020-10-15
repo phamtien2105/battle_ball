@@ -7,6 +7,8 @@ TagManager:
   - Enermy
   - Ball
   - Fence
+  - PlayerGate
+  - EnermyGate
   layers:
   - Default
   - TransparentFX
