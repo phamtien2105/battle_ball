@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject Enermy;
 
-    private List<GameObject> listPlayer;
-    private List<GameObject> listAttacker;
+    public static List<GameObject> listPlayer;
+    public static List<GameObject> listAttacker;
 
     public GameObject PlayerManager;
     public GameObject AttackerManager;
@@ -83,9 +83,6 @@ public class GameManager : MonoBehaviour
         }
 
         // find ball
-
-
-
     }
 
 

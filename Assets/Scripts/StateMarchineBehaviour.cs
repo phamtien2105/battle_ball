@@ -5,11 +5,11 @@ using UnityEngine;
 public class StateMarchineBehaviour : StateMachineBehaviour
 {
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-    // override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    // {
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
 
-
-    // }
+        
+    }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -21,6 +21,19 @@ public class StateMarchineBehaviour : StateMachineBehaviour
                 animator.gameObject.GetComponent<StateManager>().returnOriginPosition();
             }
         }
+
+        //
+
+        // bool isAttacker = animator.gameObject.GetComponent<StateManager>().MyEnumMode == StateManager.EnumMode.Attack;
+        // bool needPassBall = animator.gameObject.GetComponent<StateManager>().needPassBall;
+        // bool isHaveBall = animator.gameObject.GetComponent<StateManager>().isHaveBall;
+        // if (isHaveBall && isHaveBall && isAttacker)
+        // {
+
+        //     animator.gameObject.GetComponent<StateManager>().moveBallToAttacker(animator.gameObject.GetComponent<StateManager>().BallObject,
+        //     animator.gameObject.GetComponent<StateManager>().nearestAttacker, animator.gameObject.GetComponent<StateManager>().ballSpeed);
+
+        // }
     }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
