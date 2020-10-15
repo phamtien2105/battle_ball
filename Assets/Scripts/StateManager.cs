@@ -103,7 +103,7 @@ public class StateManager : MonoBehaviour
     {
         //  Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
-                   TargetGate.transform.position, 1.5f * Time.deltaTime);
+                   TargetGate.transform.position, SpeedWithBall * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
