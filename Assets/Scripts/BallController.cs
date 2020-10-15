@@ -6,7 +6,7 @@ public class BallController : MonoBehaviour
 {
 
 
-    public bool isBallAvaiable;
+    //public bool isBallAvaiable;
     //indicate this object keep the ball 
     public bool isKeep;
     // Start is called before the first frame update

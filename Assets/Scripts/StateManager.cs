@@ -34,6 +34,12 @@ public class StateManager : MonoBehaviour
 
     public float ReInactiveTime;
 
+    public float ReturnSpeed;
+
+    private Vector3 originPosition;
+
+    private bool needToReturnOriginPosition;
+
     void Start()
     {
 
@@ -50,9 +56,9 @@ public class StateManager : MonoBehaviour
             OpponentFence = GameObject.Find("PlayerFence").gameObject;
         }
         //  MyEnumMode = EnumMode.Attack;
-        StartCoroutine("onInactiveState", InActiveTime);
+        StartCoroutine(onInactiveState(InActiveTime, gameObject));
 
-
+        originPosition = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -61,7 +67,7 @@ public class StateManager : MonoBehaviour
 
         if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
-            if (!BallObject.GetComponent<BallController>().isKeep)
+            if (MyEnumMode == EnumMode.Attack && !BallObject.GetComponent<BallController>().isKeep)
                 chaseBall();
             else if (isHaveBall && BallObject.GetComponent<BallController>().isKeep)
             {
@@ -76,21 +82,25 @@ public class StateManager : MonoBehaviour
             if (needCatchAttacker)
                 catchAttacker();
 
+            if (needToReturnOriginPosition)
+                returnOriginPosition();
+
         }
     }
 
 
-    IEnumerator onInactiveState(int time)
+    IEnumerator onInactiveState(float time, GameObject obj)
     {
         yield return new WaitForSeconds(time);
 
         if (MyEnumMode == EnumMode.Defend)
         {
 
-            gameObject.GetComponent<Animator>().SetTrigger("isDefend");
+
+            obj.GetComponent<Animator>().SetTrigger("isDefend");
 
         }
-        else gameObject.GetComponent<Animator>().SetTrigger("isChase");
+        else obj.GetComponent<Animator>().SetTrigger("isChase");
     }
 
     public void chaseBall()
@@ -149,6 +159,14 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    public void onEnterInactive()
+    {
+
+        gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
+        gameObject.transform.Find("HighLight").gameObject.SetActive(false);
+        gameObject.transform.Find("RedTriangle").gameObject.SetActive(false);
+    }
+
 
 
     public void setEnumMode(EnumMode mode)
@@ -193,14 +211,57 @@ public class StateManager : MonoBehaviour
         if (collider.gameObject.GetComponent<StateManager>().MyEnumMode != MyEnumMode)
         {
             //2 obj convert to inactive 
-             gameObject.GetComponent<Animator>().SetTrigger("isInactive");
-             collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+
+
+            //reset ball info
+
+            BallObject.transform.parent = null;
+            BallObject.transform.position = new Vector3(0, -2, -10);
+            BallObject.GetComponent<BallController>().isKeep = false;
+            gameObject.GetComponent<StateManager>().isHaveBall = false;
+            collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
+
+
+            gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+            collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+            StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
+            StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime, collider.gameObject));
+
+
+            if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+            {
+                gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+
+            }
+            else
+                collider.gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
+
+            //fake destroy the ball
+
+
+
         }
 
 
 
         //if collection with detecter
 
+    }
+
+    private void returnOriginPosition()
+    {
+        transform.position = Vector3.MoveTowards(transform.position,
+                                      originPosition, ReturnSpeed * Time.deltaTime);
+        Vector3 rotationDestination = originPosition;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * ReturnSpeed);
+
+        if (Vector3.Distance(originPosition, transform.position) < 0.01)
+        {
+            Debug.Log("step to move go returnOriginPosition");
+            needToReturnOriginPosition = false;
+        }
     }
 
     private void catchAttacker()

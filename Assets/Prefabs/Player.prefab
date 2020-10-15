@@ -119,6 +119,7 @@ MonoBehaviour:
   NormalSpeed: 1
   CarryingSpeed: 0.75
   ReInactiveTime: 2.5
+  ReturnSpeed: 2
 --- !u!95 &1933037015
 Animator:
   serializedVersion: 3
