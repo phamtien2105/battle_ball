@@ -212,7 +212,8 @@ public class StateManager : MonoBehaviour
         {
 
             //destroy attacker if hit to the fence
-            collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
+            if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
+                collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
         }
 
         //enermy collision with defender       
@@ -345,7 +346,8 @@ public class StateManager : MonoBehaviour
         {
             var distance = Vector3.Distance(myAttacker.transform.position, attacker.transform.position);
 
-            if (distance < minDistance && !attacker.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))            
+            //&& !attacker.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation")
+            if (distance < minDistance)
             {
                 minDistance = distance;
                 nearestObject = attacker;
