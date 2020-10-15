@@ -25,7 +25,7 @@ public class StateManager : MonoBehaviour
 
     public EnumKind MyKind;
 
-    public GameObject TargetGate;
+    private GameObject TargetGate;
 
 
     public GameObject OpponentFence;
@@ -36,8 +36,13 @@ public class StateManager : MonoBehaviour
     void Start()
     {
 
+        if (MyKind == EnumKind.Enermy)
+            TargetGate = GameObject.Find("PlayerGate").gameObject;
+        else
+            TargetGate = GameObject.Find("EnermyGate").gameObject;
         //  MyEnumMode = EnumMode.Attack;
         StartCoroutine("onInactiveState", InActiveTime);
+
     }
 
     // Update is called once per frame
@@ -88,11 +93,13 @@ public class StateManager : MonoBehaviour
 
     private void moveToOpponentGate()
     {
+        Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
                    TargetGate.transform.position, 1.5f * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
+
 
     }
 
@@ -135,9 +142,10 @@ public class StateManager : MonoBehaviour
         if (collider.gameObject.CompareTag("Ball"))
         {
 
+            collider.gameObject.transform.parent = gameObject.transform;
             StateManager.isBallAvaiable = false;
             isHoldBall = true;
-            collider.gameObject.transform.parent = gameObject.transform;
+
 
 
         }
