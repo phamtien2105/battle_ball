@@ -21,6 +21,7 @@ public class StateManager : MonoBehaviour
 
     private GameObject TargetGate;
 
+    private bool isHaveBall;
 
     public GameObject OpponentFence;
 
@@ -49,14 +50,14 @@ public class StateManager : MonoBehaviour
 
         if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
-            chaseBall();
-
-            if (BallObject.GetComponent<BallController>().isKeep)
+            if (!BallObject.GetComponent<BallController>().isKeep)
+                chaseBall();
+            else if (isHaveBall && BallObject.GetComponent<BallController>().isKeep)
             {
                 // chase ball finish and move other gate
                 moveToOpponentGate();
             }//ball be holded by same attacker-> go to other land
-            else if (MyEnumMode == EnumMode.Attack && BallObject.GetComponent<BallController>().isKeep)
+            else if (!isHaveBall && MyEnumMode == EnumMode.Attack && BallObject.GetComponent<BallController>().isKeep)
             {
                 moveToOpponentLand();
             }
@@ -108,6 +109,7 @@ public class StateManager : MonoBehaviour
     private void moveToOpponentLand()
     {
 
+        Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
         if (MyKind == EnumKind.Enermy)
             transform.position -= new Vector3(0, 0, NormalSpeed * Time.deltaTime);
         else
@@ -146,7 +148,7 @@ public class StateManager : MonoBehaviour
             collider.gameObject.transform.parent = gameObject.transform;
 
             BallObject.GetComponent<BallController>().isKeep = true;
-
+            isHaveBall = true;
 
 
         }
