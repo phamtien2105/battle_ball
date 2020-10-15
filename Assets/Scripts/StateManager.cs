@@ -82,9 +82,6 @@ public class StateManager : MonoBehaviour
             if (needCatchAttacker)
                 catchAttacker();
 
-            if (needToReturnOriginPosition)
-                returnOriginPosition();
-
         }
     }
 
