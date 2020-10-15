@@ -38,7 +38,7 @@ public class StateManager : MonoBehaviour
 
     private Vector3 originPosition;
 
-    private bool needToReturnOriginPosition;
+    public bool needToReturnOriginPosition;
 
     void Start()
     {
@@ -91,6 +91,10 @@ public class StateManager : MonoBehaviour
 
     IEnumerator onInactiveState(float time, GameObject obj)
     {
+
+
+
+
         yield return new WaitForSeconds(time);
 
         if (MyEnumMode == EnumMode.Defend)
@@ -165,6 +169,7 @@ public class StateManager : MonoBehaviour
         gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
         gameObject.transform.Find("HighLight").gameObject.SetActive(false);
         gameObject.transform.Find("RedTriangle").gameObject.SetActive(false);
+
     }
 
 
@@ -213,6 +218,17 @@ public class StateManager : MonoBehaviour
             //2 obj convert to inactive 
 
 
+            if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+            {
+                gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+
+            }
+            else
+            {
+                collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                collider.GetComponent<StateManager>().needCatchAttacker = false;
+            }
             //reset ball info
 
             BallObject.transform.parent = null;
@@ -228,14 +244,6 @@ public class StateManager : MonoBehaviour
             StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime, collider.gameObject));
 
 
-            if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
-            {
-                gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
-                gameObject.GetComponent<StateManager>().needCatchAttacker = false;
-
-            }
-            else
-                collider.gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
 
             //fake destroy the ball
 
@@ -249,7 +257,7 @@ public class StateManager : MonoBehaviour
 
     }
 
-    private void returnOriginPosition()
+    public void returnOriginPosition()
     {
         transform.position = Vector3.MoveTowards(transform.position,
                                       originPosition, ReturnSpeed * Time.deltaTime);
