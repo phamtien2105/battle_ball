@@ -23,6 +23,9 @@ public class StateManager : MonoBehaviour
     public GameObject TargetGate;
 
 
+    public GameObject OpponentFence;
+
+
     void Start()
     {
 
@@ -37,8 +40,15 @@ public class StateManager : MonoBehaviour
         chaseBall();
         if (isHoldBall)
         {
-            MoveToGate();
+            // chase ball finish and move other gate
+            moveToGate();
+        }//ball be holded by same attacker-> go to other land
+        else if (StateManager.isBallAvaiable == false &&
+           !isHoldBall)
+        {
+                moveForwardLand(); 
         }
+
 
     }
 
@@ -70,7 +80,7 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    private void MoveToGate()
+    private void moveToGate()
     {
 
 
@@ -80,6 +90,16 @@ public class StateManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
 
+    }
+
+
+    private void moveForwardLand()
+    {
+          transform.position = Vector3.MoveTowards(transform.position,
+                   TargetGate.transform.position, 1.5f * Time.deltaTime);
+        Vector3 rotationDestination = TargetGate.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * SpeedWithBall);
     }
 
     public void onExitInactive()
@@ -107,7 +127,7 @@ public class StateManager : MonoBehaviour
         Debug.Log("hit ball");
         if (collider.gameObject.CompareTag("Ball"))
         {
-            
+
             StateManager.isBallAvaiable = false;
             isHoldBall = true;
             collider.gameObject.transform.parent = gameObject.transform;

@@ -1045,6 +1045,10 @@ PrefabInstance:
       propertyPath: TargetGate
       value: 
       objectReference: {fileID: 744651018}
+    - target: {fileID: 1933037014, guid: 575811749f890024b8046badbe1a0116, type: 3}
+      propertyPath: OpponentFence
+      value: 
+      objectReference: {fileID: 352684018}
     - target: {fileID: 4437695554890507188, guid: 575811749f890024b8046badbe1a0116,
         type: 3}
       propertyPath: m_Name
@@ -1619,6 +1623,11 @@ PrefabInstance:
       propertyPath: TargetGate
       value: 
       objectReference: {fileID: 803144462}
+    - target: {fileID: 7979316610746808708, guid: 87127139c3257874b9c0f26674f50212,
+        type: 3}
+      propertyPath: OpponentFence
+      value: 
+      objectReference: {fileID: 964485400}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87127139c3257874b9c0f26674f50212, type: 3}
 --- !u!224 &1375552793 stripped
