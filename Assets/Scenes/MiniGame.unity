@@ -854,7 +854,7 @@ GameObject:
   - component: {fileID: 744651019}
   m_Layer: 0
   m_Name: EnermyGate
-  m_TagString: EnermyGate
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 803144463}
   m_Layer: 0
   m_Name: PlayerGate
-  m_TagString: PlayerGate
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

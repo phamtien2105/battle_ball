@@ -158,11 +158,19 @@ public class StateManager : MonoBehaviour
 
 
         }
+        else if (isHaveBall && collider.gameObject.CompareTag("Gate"))
+        {
+
+            Debug.Log("win");
+            //destroy attacker if hit to the fence
+            Destroy(gameObject);
+        }
         else if (collider.gameObject.CompareTag("Fence"))
         {
 
             //destroy attacker if hit to the fence
             Destroy(gameObject);
         }
+
     }
 }
