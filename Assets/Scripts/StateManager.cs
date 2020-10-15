@@ -102,6 +102,8 @@ public class StateManager : MonoBehaviour
 
     private void moveToOpponentGate()
     {
+        //enable highlight
+        gameObject.transform.Find("HighLight").gameObject.SetActive(true);
         //  Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
                    TargetGate.transform.position, CarryingSpeed * Time.deltaTime);
@@ -115,6 +117,8 @@ public class StateManager : MonoBehaviour
 
     private void moveToOpponentLand()
     {
+
+        //rotate to target
 
         //  Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
         if (MyKind == EnumKind.Enermy)

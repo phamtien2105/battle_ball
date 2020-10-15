@@ -96,15 +96,15 @@ public class GameManager : MonoBehaviour
         if (isPlayerAttach)
         {
 
-            ball = Instantiate(Ball, new Vector3(0, 2f, -10), Quaternion.identity);
+            ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
 
         }
         else
         {
-            ball = Instantiate(Ball, new Vector3(0, 2f, -10), Quaternion.identity);
+            ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
         }
 
-        isBallCreate = true;      
+        isBallCreate = true;
 
     }
 

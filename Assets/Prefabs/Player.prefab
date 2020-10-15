@@ -168,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 3269913297774985755, guid: f23455b1e3ab42e46be4d9e92a9151e9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.04
       objectReference: {fileID: 0}
     - target: {fileID: 3269913297774985755, guid: f23455b1e3ab42e46be4d9e92a9151e9,
         type: 3}
@@ -215,25 +215,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3269913297774985755, guid: f23455b1e3ab42e46be4d9e92a9151e9,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3269913297774985755, guid: f23455b1e3ab42e46be4d9e92a9151e9,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3269913297774985759, guid: f23455b1e3ab42e46be4d9e92a9151e9,
         type: 3}
       propertyPath: m_Name
       value: HighLight
-      objectReference: {fileID: 0}
-    - target: {fileID: 3269913297774985759, guid: f23455b1e3ab42e46be4d9e92a9151e9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f23455b1e3ab42e46be4d9e92a9151e9, type: 3}
