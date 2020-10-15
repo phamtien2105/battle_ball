@@ -15,12 +15,6 @@ public class StateManager : MonoBehaviour
 
     public float SpeedWithBall;
 
-    public static bool isBallAvaiable;
-
-    //indicate this object keep the ball 
-    private bool isHoldBall;
-    public static Vector3 BallPosition;
-
     public EnumMode MyEnumMode;
 
     public EnumKind MyKind;
@@ -32,9 +26,13 @@ public class StateManager : MonoBehaviour
 
     public float NormalSpeed;
 
+    private GameObject BallObject;
+
 
     void Start()
     {
+
+        BallObject = GameObject.FindWithTag("Ball").gameObject;
 
         if (MyKind == EnumKind.Enermy)
             TargetGate = GameObject.Find("PlayerGate").gameObject;
@@ -49,18 +47,21 @@ public class StateManager : MonoBehaviour
     void Update()
     {
 
-        chaseBall();
-        if (isHoldBall)
+        if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
-            // chase ball finish and move other gate
-            moveToOpponentGate();
-        }//ball be holded by same attacker-> go to other land
-        else if (MyEnumMode == EnumMode.Attack && !StateManager.isBallAvaiable && !isHoldBall)
-        {
-            moveToOpponentLand();
+            chaseBall();
+
+            if (BallObject.GetComponent<BallController>().isKeep)
+            {
+                // chase ball finish and move other gate
+                moveToOpponentGate();
+            }//ball be holded by same attacker-> go to other land
+            else if (MyEnumMode == EnumMode.Attack && BallObject.GetComponent<BallController>().isKeep)
+            {
+                moveToOpponentLand();
+            }
+
         }
-
-
     }
 
 
@@ -80,12 +81,12 @@ public class StateManager : MonoBehaviour
     public void chaseBall()
     {
 
-        if (isBallAvaiable && MyEnumMode == EnumMode.Attack
-        && !GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
+        if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumMode.Attack
+        )
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                       BallPosition, 1.5f * Time.deltaTime);
-            Vector3 rotationDestination = BallPosition;
+                       BallObject.transform.position, 1.5f * Time.deltaTime);
+            Vector3 rotationDestination = BallObject.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 6.0f);
         }
@@ -143,8 +144,8 @@ public class StateManager : MonoBehaviour
         {
 
             collider.gameObject.transform.parent = gameObject.transform;
-            StateManager.isBallAvaiable = false;
-            isHoldBall = true;
+
+            BallObject.GetComponent<BallController>().isKeep = true;
 
 
 

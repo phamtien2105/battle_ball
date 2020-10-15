@@ -104,9 +104,7 @@ public class GameManager : MonoBehaviour
             ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
         }
 
-        isBallCreate = true;
-        StateManager.isBallAvaiable = true;
-        StateManager.BallPosition = ball.transform.position;
+        isBallCreate = true;      
 
     }
 
