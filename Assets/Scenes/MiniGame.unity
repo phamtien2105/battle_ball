@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 352684020}
   - component: {fileID: 352684023}
   m_Layer: 10
-  m_Name: wall_top
+  m_Name: EnermyFence
   m_TagString: Fence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1225,7 +1225,7 @@ GameObject:
   - component: {fileID: 964485402}
   - component: {fileID: 964485405}
   m_Layer: 10
-  m_Name: wall_bottom
+  m_Name: PlayerFence
   m_TagString: Fence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
