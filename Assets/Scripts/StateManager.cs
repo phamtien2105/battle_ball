@@ -79,7 +79,7 @@ public class StateManager : MonoBehaviour
     {
         if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
-            if (MyEnumPLayMode == EnumPLayMode.Attacker && !StateManager.BallObject.GetComponent<BallController>().isKeep)
+            if ( MyEnumPLayMode == EnumPLayMode.Attacker && !StateManager.BallObject.GetComponent<BallController>().isKeep)
                 chaseBall();
             else if (isHaveBall && StateManager.BallObject.GetComponent<BallController>().isKeep)
             {
@@ -186,17 +186,18 @@ public class StateManager : MonoBehaviour
         {
             Debug.Log("win");
             //destroy attacker if hit to the fence
+
+            Time.timeScale = 0;
             //  Destroy(gameObject);
         }
         else if (collider.gameObject.CompareTag("Fence"))
         {
             //destroy attacker if hit to the fence
-
             if (MyKind == EnumKind.Enermy)
                 GameManager.listEnermy.Remove(gameObject);
             else
                 GameManager.listPlayer.Remove(gameObject);
-            Destroy(gameObject);
+             gameObject.SetActive(false);
         }
         else if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
         {
@@ -224,6 +225,10 @@ public class StateManager : MonoBehaviour
 
                 if (isHaveBall || collider.gameObject.GetComponent<StateManager>().isHaveBall)
                 {
+
+                    isHaveBall = false;
+                    collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
+                    
                     Debug.Log("defender hit attacker have ball");
 
                     StateManager.BallObject.transform.parent = null;
@@ -295,13 +300,14 @@ public class StateManager : MonoBehaviour
     }
 
     private void catchAttacker()
-    {
-        Debug.Log("defender go to catch emermy");
-        transform.position = Vector3.MoveTowards(transform.position,
-            StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
-        Vector3 rotationDestination = StateManager.BallObject.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
+    { 
+            Debug.Log("defender go to catch emermy");
+            transform.position = Vector3.MoveTowards(transform.position,
+                StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
+            Vector3 rotationDestination = StateManager.BallObject.transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
+        
     }
 
     private void moveBalltoNext()
@@ -320,6 +326,7 @@ public class StateManager : MonoBehaviour
             // defender win
 
             Debug.Log("tien debug defenfer win");
+            Time.timeScale = 0;
         }
         else if (StateManager.BallObject != null)
         {
