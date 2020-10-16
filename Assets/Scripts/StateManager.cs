@@ -7,9 +7,18 @@ public class StateManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public enum EnumMode { Attack, Defend };
+    public enum EnumMode
+    {
+        Attack,
+        Defend
+    };
 
-    public enum EnumKind { Player, Enermy };
+    public enum EnumKind
+    {
+        Player,
+        Enermy
+    };
+
     public float CostEnergy;
     public float InActiveTime;
 
@@ -44,8 +53,6 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
-
-
         StateManager.BallObject = GameObject.FindWithTag("Ball").gameObject;
 
         if (MyKind == EnumKind.Enermy)
@@ -58,6 +65,7 @@ public class StateManager : MonoBehaviour
             TargetGate = GameObject.Find("EnermyGate").gameObject;
             OpponentFence = GameObject.Find("PlayerFence").gameObject;
         }
+
         //  MyEnumMode = EnumMode.Attack;
         StartCoroutine(onInactiveState(InActiveTime, gameObject));
 
@@ -67,7 +75,6 @@ public class StateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
             if (MyEnumMode == EnumMode.Attack && !StateManager.BallObject.GetComponent<BallController>().isKeep)
@@ -76,15 +83,15 @@ public class StateManager : MonoBehaviour
             {
                 // chase ball finish and move other gate
                 moveToOpponentGate();
-            }//ball be holded by same attacker-> go to other land
-            else if (!isHaveBall && MyEnumMode == EnumMode.Attack && StateManager.BallObject.GetComponent<BallController>().isKeep)
+            } //ball be holded by same attacker-> go to other land
+            else if (!isHaveBall && MyEnumMode == EnumMode.Attack &&
+                     StateManager.BallObject.GetComponent<BallController>().isKeep)
             {
                 moveToOpponentLand();
             }
 
             if (needCatchAttacker)
                 catchAttacker();
-
         }
 
         // if (needPassBall && MyEnumMode == EnumMode.Attack)
@@ -97,26 +104,21 @@ public class StateManager : MonoBehaviour
 
     IEnumerator onInactiveState(float time, GameObject obj)
     {
-
         yield return new WaitForSeconds(time);
 
         if (MyEnumMode == EnumMode.Defend)
         {
-
-
             obj.GetComponent<Animator>().SetTrigger("isDefend");
-
         }
         else obj.GetComponent<Animator>().SetTrigger("isChase");
     }
 
     public void chaseBall()
     {
-
         if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumMode.Attack)
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                       StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
+                StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
             Vector3 rotationDestination = StateManager.BallObject.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
@@ -129,18 +131,15 @@ public class StateManager : MonoBehaviour
         gameObject.transform.Find("HighLight").gameObject.SetActive(true);
         //  Debug.Log("moveToOpponentGate" + TargetGate.transform.position);
         transform.position = Vector3.MoveTowards(transform.position,
-                   TargetGate.transform.position, CarryingSpeed * Time.deltaTime);
+            TargetGate.transform.position, CarryingSpeed * Time.deltaTime);
         Vector3 rotationDestination = TargetGate.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CarryingSpeed);
-
-
     }
 
 
     private void moveToOpponentLand()
     {
-
         //rotate to target
 
         //  Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
@@ -148,9 +147,6 @@ public class StateManager : MonoBehaviour
             transform.position -= new Vector3(0, 0, NormalSpeed * Time.deltaTime);
         else
             transform.position += new Vector3(0, 0, NormalSpeed * Time.deltaTime);
-
-
-
     }
 
     public void onExitInactive()
@@ -160,7 +156,6 @@ public class StateManager : MonoBehaviour
             gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
         else
         {
-
             gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
             gameObject.transform.Find("RedTriangle").gameObject.SetActive(true);
         }
@@ -168,13 +163,10 @@ public class StateManager : MonoBehaviour
 
     public void onEnterInactive()
     {
-
         gameObject.transform.Find("DetectArea").gameObject.SetActive(false);
         gameObject.transform.Find("HighLight").gameObject.SetActive(false);
         gameObject.transform.Find("RedTriangle").gameObject.SetActive(false);
-
     }
-
 
 
     public void setEnumMode(EnumMode mode)
@@ -192,27 +184,23 @@ public class StateManager : MonoBehaviour
 
             StateManager.BallObject.GetComponent<BallController>().isKeep = true;
             isHaveBall = true;
-
-
         }
         else if (isHaveBall && collider.gameObject.CompareTag("Gate"))
         {
-
             Debug.Log("win");
             //destroy attacker if hit to the fence
             Destroy(gameObject);
         }
         else if (collider.gameObject.CompareTag("Fence"))
         {
-
             //destroy attacker if hit to the fence
             Destroy(gameObject);
         }
         else if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
         {
-
             //destroy attacker if hit to the fence
-            if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
+            if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
+                .IsName("InactiveAnimation"))
                 collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
         }
 
@@ -227,10 +215,9 @@ public class StateManager : MonoBehaviour
                         .IsName("InactiveAnimation"))
                 {
                     return;
-                    
                 }
 
-                
+
                 // 1 in 2 have ball 
 
                 if (isHaveBall || collider.gameObject.GetComponent<StateManager>().isHaveBall)
@@ -246,30 +233,26 @@ public class StateManager : MonoBehaviour
                     {
                         gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
                         gameObject.GetComponent<StateManager>().needCatchAttacker = false;
-
                     }
                     else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
                     {
                         Debug.Log("pass ball");
+                        
+                        gameObject.GetComponent<StateManager>().isHaveBall = false;
                         gameObject.GetComponent<StateManager>().moveBalltoNext();
-
-
                     }
                     else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
                     {
-
                         collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
                         collider.GetComponent<StateManager>().needCatchAttacker = false;
-
-
                     }
                     else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
                     {
                         Debug.Log("pass ball");
                         collider.gameObject.GetComponent<StateManager>().moveBalltoNext();
+                        collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
                     }
                     //reset ball info
-
 
 
                     gameObject.GetComponent<Animator>().SetTrigger("isInactive");
@@ -277,21 +260,17 @@ public class StateManager : MonoBehaviour
                     StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
                     StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime,
                         collider.gameObject));
-
-
                 }
             }
 
 
-
         //if collection with detecter
-
     }
 
     public void returnOriginPosition()
     {
         transform.position = Vector3.MoveTowards(transform.position,
-                                      originPosition, ReturnSpeed * Time.deltaTime);
+            originPosition, ReturnSpeed * Time.deltaTime);
         Vector3 rotationDestination = originPosition;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * ReturnSpeed);
@@ -307,7 +286,7 @@ public class StateManager : MonoBehaviour
     {
         Debug.Log("defender go to catch emermy");
         transform.position = Vector3.MoveTowards(transform.position,
-                              StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
+            StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
         Vector3 rotationDestination = StateManager.BallObject.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
@@ -327,7 +306,6 @@ public class StateManager : MonoBehaviour
         {
             // defender win
             Debug.Log("tien debug defenfer win");
-           
         }
         else if (StateManager.BallObject != null)
         {
@@ -339,17 +317,12 @@ public class StateManager : MonoBehaviour
             isHaveBall = false;
             StateManager.BallObject.GetComponent<BallController>().isKeep = false;
             StateManager.BallObject.GetComponent<BallController>().needPassBall = true;
-
         }
-
-
-
     }
 
 
     private GameObject findNearestAttacker(GameObject myAttacker, List<GameObject> ListObjs)
     {
-
         if (GameManager.listAttacker.Count == 1)
             return null;
 
@@ -364,18 +337,18 @@ public class StateManager : MonoBehaviour
 
         foreach (var attacker in tempList)
         {
-            var distance = Vector3.Distance(myAttacker.transform.position, attacker.transform.position);
-
-            //&& !attacker.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation")
-            if (distance < minDistance)
+            if (!attacker.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
             {
-                minDistance = distance;
-                nearestObject = attacker;
+                var distance = Vector3.Distance(myAttacker.transform.position, attacker.transform.position);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestObject = attacker;
+                }
             }
         }
 
         return nearestObject;
     }
-
-
 }
