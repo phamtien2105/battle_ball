@@ -70,3 +70,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /.vscode
+.idea/.idea.unity/riderModule.iml
+.idea/.idea.unity/.idea/workspace.xml
+.idea/.idea.unity/.idea/projectSettingsUpdater.xml
+.idea/.idea.unity/.idea/modules.xml
+.idea/.idea.unity/.idea/indexLayout.xml
+.idea/.idea.unity/.idea/encodings.xml
+.idea/.idea.unity/.idea/contentModel.xml

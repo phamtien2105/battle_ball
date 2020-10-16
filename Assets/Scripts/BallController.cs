@@ -41,8 +41,6 @@ public class BallController : MonoBehaviour
     public void moveBallToAttacker(GameObject des)
     {
 
-       
-
         Debug.Log("moveBallToAttacker");
         transform.position = Vector3.MoveTowards(transform.position,
                            des.transform.position, ballSpeed * Time.deltaTime);

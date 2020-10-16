@@ -307,7 +307,13 @@ public class StateManager : MonoBehaviour
         else
             nearestAttacker = findNearestAttacker(gameObject, GameManager.listPlayer);
         // //
-        if (StateManager.BallObject != null)
+
+        if (nearestAttacker == null)
+        {
+            // defender win
+            Debug.Log("tien debug defenfer win");
+        }
+        else if (StateManager.BallObject != null)
         {
             // Debug.Log("list attacker " + GameManager.listAttacker.Count);
             // Debug.Log("nearestAttacker " + nearestAttacker.transform.position);
@@ -338,8 +344,6 @@ public class StateManager : MonoBehaviour
 
         //remove itself
         tempList.Remove(gameObject);
-        if (tempList.Count == 1)
-            return tempList[0];
 
 
         foreach (var attacker in tempList)
