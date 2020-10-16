@@ -9,6 +9,7 @@ public class EnergyController : MonoBehaviour
 
     public static int CapPerUnit = 5;
 
+    //tien fake to test quick
     private float valuePerSec = 0.5f;
 
     private float totalEnergy;
@@ -38,7 +39,7 @@ public class EnergyController : MonoBehaviour
 
     public void subEnergy(float value)
     {
-        for (int i = 0; i < value / 0.5f; i++)
+        for (int i = 0; i < value / valuePerSec; i++)
         {
             this.current -= valuePerSec;
             decreaseEnergy(-1 * valuePerSec);
