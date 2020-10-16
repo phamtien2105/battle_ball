@@ -114,12 +114,15 @@ MonoBehaviour:
   CostEnergy: 3
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumMode: 1
+  MyEnumMode: 0
   MyKind: 0
+  isHaveBall: 0
   NormalSpeed: 1
   CarryingSpeed: 0.75
   ReInactiveTime: 2.5
   ReturnSpeed: 2
+  needToReturnOriginPosition: 0
+  nearestAttacker: {fileID: 0}
 --- !u!95 &1933037015
 Animator:
   serializedVersion: 3

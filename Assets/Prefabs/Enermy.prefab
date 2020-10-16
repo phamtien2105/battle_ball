@@ -109,7 +109,7 @@ Animator:
   m_GameObject: {fileID: 1466840646100663203}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a47d94d7a06d9c04da96fcd9b093e6f3, type: 2}
+  m_Controller: {fileID: 9100000, guid: b02ae303943a8264883991dca0f8d2c3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -133,12 +133,15 @@ MonoBehaviour:
   CostEnergy: 2
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumMode: 0
+  MyEnumPLayMode: 1
   MyKind: 1
+  isHaveBall: 0
   NormalSpeed: 1.5
   CarryingSpeed: 0.75
   ReInactiveTime: 4
   ReturnSpeed: 2
+  needToReturnOriginPosition: 0
+  nearestAttacker: {fileID: 0}
 --- !u!54 &1023879503
 Rigidbody:
   m_ObjectHideFlags: 0
