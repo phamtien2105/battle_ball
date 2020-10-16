@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -265,6 +266,17 @@ public class StateManager : MonoBehaviour
 
 
         //if collection with detecter
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
+        {
+            Debug.Log("tien debug need to catch attacker");  
+            if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
+                .IsName("InactiveAnimation"))
+                collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
+        }
     }
 
     public void returnOriginPosition()
