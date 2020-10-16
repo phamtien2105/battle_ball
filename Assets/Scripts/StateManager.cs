@@ -284,7 +284,11 @@ public class StateManager : MonoBehaviour
             Debug.Log("tien debug need to catch attacker");
             if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
                 .IsName("InactiveAnimation"))
+            {
                 collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
+                collider.gameObject.GetComponentInParent<StateManager>().AttckerPosition = gameObject.transform.position;
+
+            }
         }
     }
 
