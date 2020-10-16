@@ -98,11 +98,10 @@ public class StateManager : MonoBehaviour
                 catchAttacker();
         }
 
-        // if (needPassBall && MyEnumMode == EnumMode.Attack)
-        // {
-        //     moveBallToAttacker(BallObject, nearestAttacker, ballSpeed);
-
-        // }
+        if (gameObject.GetComponentInChildren<BallController>() == null)
+        {
+            isHaveBall = false;
+        }else isHaveBall = true;
     }
 
 
