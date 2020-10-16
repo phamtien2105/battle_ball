@@ -27,6 +27,7 @@ public class BloodUnitController : MonoBehaviour
 
     public void inCreaseEnergy(float value)
     {
+        
         current += value;
         var tempColor = image.color;
 
