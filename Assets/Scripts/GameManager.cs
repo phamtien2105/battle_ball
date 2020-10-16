@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject Enermy;
 
     public static List<GameObject> listPlayer;
-    public static List<GameObject> listAttacker;
+    public static List<GameObject> listEnermy;
 
     public GameObject PlayerManager;
     public GameObject AttackerManager;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         CountText.text = "0s";
         timer = 0;
         listPlayer = new List<GameObject>();
-        listAttacker = new List<GameObject>();
+        listEnermy = new List<GameObject>();
         isPlayerAttach = true;
         genertateBall();
     }
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
                 {
                     AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
                     GameObject attacker = Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
-                    listAttacker.Add(attacker);
+                    listEnermy.Add(attacker);
                 }
 
             }

@@ -8,10 +8,10 @@ public class StateManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public enum EnumMode
+    public enum EnumPLayMode
     {
-        Attack,
-        Defend
+        Attacker,
+        Defender
     };
 
     public enum EnumKind
@@ -25,7 +25,7 @@ public class StateManager : MonoBehaviour
 
     public float SpeedWithBall;
 
-    public EnumMode MyEnumMode;
+    public EnumPLayMode MyEnumMode;
 
     public EnumKind MyKind;
 
@@ -79,14 +79,14 @@ public class StateManager : MonoBehaviour
     {
         if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("InactiveAnimation"))
         {
-            if (MyEnumMode == EnumMode.Attack && !StateManager.BallObject.GetComponent<BallController>().isKeep)
+            if (MyEnumMode == EnumPLayMode.Attacker && !StateManager.BallObject.GetComponent<BallController>().isKeep)
                 chaseBall();
             else if (isHaveBall && StateManager.BallObject.GetComponent<BallController>().isKeep)
             {
                 // chase ball finish and move other gate
                 moveToOpponentGate();
             } //ball be holded by same attacker-> go to other land
-            else if (!isHaveBall && MyEnumMode == EnumMode.Attack &&
+            else if (!isHaveBall && MyEnumMode == EnumPLayMode.Attacker &&
                      StateManager.BallObject.GetComponent<BallController>().isKeep)
             {
                 moveToOpponentLand();
@@ -108,7 +108,7 @@ public class StateManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        if (MyEnumMode == EnumMode.Defend)
+        if (MyEnumMode == EnumPLayMode.Defender)
         {
             obj.GetComponent<Animator>().SetTrigger("isDefend");
         }
@@ -117,7 +117,7 @@ public class StateManager : MonoBehaviour
 
     public void chaseBall()
     {
-        if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumMode.Attack)
+        if (!BallObject.GetComponent<BallController>().isKeep && MyEnumMode == EnumPLayMode.Attacker)
         {
             transform.position = Vector3.MoveTowards(transform.position,
                 StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
@@ -154,7 +154,7 @@ public class StateManager : MonoBehaviour
     public void onExitInactive()
     {
         //enable detect area
-        if (MyEnumMode == EnumMode.Defend)
+        if (MyEnumMode == EnumPLayMode.Defender)
             gameObject.transform.Find("DetectArea").gameObject.SetActive(true);
         else
         {
@@ -171,15 +171,10 @@ public class StateManager : MonoBehaviour
     }
 
 
-    public void setEnumMode(EnumMode mode)
-    {
-        this.MyEnumMode = mode;
-    }
-
     void OnTriggerEnter(Collider collider)
     {
         Debug.Log("hit" + collider.gameObject.tag);
-        if (MyEnumMode == EnumMode.Attack && collider.gameObject.CompareTag("Ball"))
+        if (MyEnumMode == EnumPLayMode.Attacker && collider.gameObject.CompareTag("Ball"))
         {
             Debug.Log("hit ball");
             collider.gameObject.transform.parent = gameObject.transform;
@@ -198,7 +193,7 @@ public class StateManager : MonoBehaviour
             //destroy attacker if hit to the fence
 
             if (MyKind == EnumKind.Enermy)
-                GameManager.listAttacker.Remove(gameObject);
+                GameManager.listEnermy.Remove(gameObject);
             else
                 GameManager.listPlayer.Remove(gameObject);
             Destroy(gameObject);
@@ -234,23 +229,23 @@ public class StateManager : MonoBehaviour
                     StateManager.BallObject.transform.parent = null;
                     StateManager.BallObject.GetComponent<BallController>().isKeep = false;
 
-                    if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                    if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumPLayMode.Defender)
                     {
                         gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
                         gameObject.GetComponent<StateManager>().needCatchAttacker = false;
                     }
-                    else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
+                    else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumPLayMode.Attacker)
                     {
                         Debug.Log("pass ball");
 
                         gameObject.GetComponent<StateManager>().moveBalltoNext();
                     }
-                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumPLayMode.Defender)
                     {
                         collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
                         collider.GetComponent<StateManager>().needCatchAttacker = false;
                     }
-                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
+                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumPLayMode.Attacker)
                     {
                         Debug.Log("pass ball");
                         collider.gameObject.GetComponent<StateManager>().moveBalltoNext();
@@ -312,7 +307,7 @@ public class StateManager : MonoBehaviour
 
 
         if (MyKind == EnumKind.Enermy)
-            nearestAttacker = findNearestAttacker(gameObject, GameManager.listAttacker);
+            nearestAttacker = findNearestAttacker(gameObject, GameManager.listEnermy);
         else
             nearestAttacker = findNearestAttacker(gameObject, GameManager.listPlayer);
         // //
@@ -339,7 +334,7 @@ public class StateManager : MonoBehaviour
 
     private GameObject findNearestAttacker(GameObject myAttacker, List<GameObject> ListObjs)
     {
-        if (GameManager.listAttacker.Count == 1)
+        if (GameManager.listEnermy.Count == 1)
             return null;
 
         GameObject nearestObject = null;
