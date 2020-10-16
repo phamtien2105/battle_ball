@@ -52,6 +52,8 @@ public class StateManager : MonoBehaviour
 
     public GameObject nearestAttacker;
 
+    public Vector3 AttckerPosition;
+
     void Start()
     {
         isHaveBall = false;
@@ -204,7 +206,10 @@ public class StateManager : MonoBehaviour
             //destroy attacker if hit to the fence
             if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
                 .IsName("InactiveAnimation"))
+            {
                 collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
+                collider.gameObject.GetComponentInParent<StateManager>().AttckerPosition = transform.position;
+            }
         }
 
         //enermy collision with defender       
@@ -303,8 +308,8 @@ public class StateManager : MonoBehaviour
     { 
             Debug.Log("defender go to catch emermy");
             transform.position = Vector3.MoveTowards(transform.position,
-                StateManager.BallObject.transform.position, NormalSpeed * Time.deltaTime);
-            Vector3 rotationDestination = StateManager.BallObject.transform.position;
+                AttckerPosition, NormalSpeed * Time.deltaTime);
+            Vector3 rotationDestination = AttckerPosition;
             Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * NormalSpeed);
         
