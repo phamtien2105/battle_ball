@@ -220,51 +220,66 @@ public class StateManager : MonoBehaviour
         if (collider.gameObject.GetComponent<StateManager>() != null)
             if (collider.gameObject.GetComponent<StateManager>().MyEnumMode != MyEnumMode)
             {
-                //2 obj convert to inactive 
-
-
-                StateManager.BallObject.transform.parent = null;
-                StateManager.BallObject.GetComponent<BallController>().isKeep = false;
-                gameObject.GetComponent<StateManager>().isHaveBall = false;
-                collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
-
-                if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                //2 obj must active
+                if (collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
+                        .IsName("InactiveAnimation")
+                    || gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
+                        .IsName("InactiveAnimation"))
                 {
-                    gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
-                    gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+                    return;
+                    
+                }
+
+                
+                // 1 in 2 have ball 
+
+                if (isHaveBall || collider.gameObject.GetComponent<StateManager>().isHaveBall)
+                {
+                    Debug.Log("defender hit attacker have ball");
+
+                    StateManager.BallObject.transform.parent = null;
+                    StateManager.BallObject.GetComponent<BallController>().isKeep = false;
+                    gameObject.GetComponent<StateManager>().isHaveBall = false;
+                    collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
+
+                    if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                    {
+                        gameObject.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                        gameObject.GetComponent<StateManager>().needCatchAttacker = false;
+
+                    }
+                    else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
+                    {
+                        Debug.Log("pass ball");
+                        gameObject.GetComponent<StateManager>().moveBalltoNext();
+
+
+                    }
+                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
+                    {
+
+                        collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
+                        collider.GetComponent<StateManager>().needCatchAttacker = false;
+
+
+                    }
+                    else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
+                    {
+                        Debug.Log("pass ball");
+                        collider.gameObject.GetComponent<StateManager>().moveBalltoNext();
+                    }
+                    //reset ball info
+
+
+
+                    gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+                    collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
+                    StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
+                    StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime,
+                        collider.gameObject));
+
 
                 }
-                else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
-                {
-                    Debug.Log("pass ball");
-                    gameObject.GetComponent<StateManager>().moveBalltoNext();
-
-
-                }
-                else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
-                {
-
-                    collider.GetComponent<StateManager>().needToReturnOriginPosition = true;
-                    collider.GetComponent<StateManager>().needCatchAttacker = false;
-
-
-                }
-                else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
-                {
-                    Debug.Log("pass ball");
-                    collider.gameObject.GetComponent<StateManager>().moveBalltoNext();
-                }
-                //reset ball info
-
-
-
-                gameObject.GetComponent<Animator>().SetTrigger("isInactive");
-                collider.gameObject.GetComponent<Animator>().SetTrigger("isInactive");
-                StartCoroutine(onInactiveState(gameObject.GetComponent<StateManager>().ReInactiveTime, gameObject));
-                StartCoroutine(onInactiveState(collider.gameObject.GetComponent<StateManager>().ReInactiveTime, collider.gameObject));
-
-
-
             }
 
 
@@ -312,6 +327,7 @@ public class StateManager : MonoBehaviour
         {
             // defender win
             Debug.Log("tien debug defenfer win");
+           
         }
         else if (StateManager.BallObject != null)
         {
