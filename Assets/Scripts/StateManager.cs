@@ -54,6 +54,7 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
+        isHaveBall = false;
         StateManager.BallObject = GameObject.FindWithTag("Ball").gameObject;
 
         if (MyKind == EnumKind.Enermy)
@@ -177,6 +178,7 @@ public class StateManager : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+
         Debug.Log("hit" + collider.gameObject.tag);
         if (MyEnumMode == EnumMode.Attack && collider.gameObject.CompareTag("Ball"))
         {
@@ -227,8 +229,6 @@ public class StateManager : MonoBehaviour
 
                     StateManager.BallObject.transform.parent = null;
                     StateManager.BallObject.GetComponent<BallController>().isKeep = false;
-                    gameObject.GetComponent<StateManager>().isHaveBall = false;
-                    collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
 
                     if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
                     {
@@ -239,7 +239,6 @@ public class StateManager : MonoBehaviour
                     {
                         Debug.Log("pass ball");
                         
-                        gameObject.GetComponent<StateManager>().isHaveBall = false;
                         gameObject.GetComponent<StateManager>().moveBalltoNext();
                     }
                     else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
@@ -251,7 +250,6 @@ public class StateManager : MonoBehaviour
                     {
                         Debug.Log("pass ball");
                         collider.gameObject.GetComponent<StateManager>().moveBalltoNext();
-                        collider.gameObject.GetComponent<StateManager>().isHaveBall = false;
                     }
                     //reset ball info
 
@@ -307,6 +305,8 @@ public class StateManager : MonoBehaviour
     private void moveBalltoNext()
     {
         //find neast active attacker
+        
+        
 
         if (MyKind == EnumKind.Enermy)
             nearestAttacker = findNearestAttacker(gameObject, GameManager.listAttacker);
@@ -317,6 +317,7 @@ public class StateManager : MonoBehaviour
         if (nearestAttacker == null)
         {
             // defender win
+            
             Debug.Log("tien debug defenfer win");
         }
         else if (StateManager.BallObject != null)
@@ -324,9 +325,9 @@ public class StateManager : MonoBehaviour
             // Debug.Log("list attacker " + GameManager.listAttacker.Count);
             // Debug.Log("nearestAttacker " + nearestAttacker.transform.position);
             //remove parent of ball
+            isHaveBall = false;
 
             StateManager.BallObject.GetComponent<BallController>().desObject = nearestAttacker;
-            isHaveBall = false;
             StateManager.BallObject.GetComponent<BallController>().isKeep = false;
             StateManager.BallObject.GetComponent<BallController>().needPassBall = true;
         }
