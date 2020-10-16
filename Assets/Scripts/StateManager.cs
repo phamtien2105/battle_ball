@@ -178,7 +178,6 @@ public class StateManager : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-
         Debug.Log("hit" + collider.gameObject.tag);
         if (MyEnumMode == EnumMode.Attack && collider.gameObject.CompareTag("Ball"))
         {
@@ -192,11 +191,16 @@ public class StateManager : MonoBehaviour
         {
             Debug.Log("win");
             //destroy attacker if hit to the fence
-            Destroy(gameObject);
+            //  Destroy(gameObject);
         }
         else if (collider.gameObject.CompareTag("Fence"))
         {
             //destroy attacker if hit to the fence
+
+            if (MyKind == EnumKind.Enermy)
+                GameManager.listAttacker.Remove(gameObject);
+            else
+                GameManager.listPlayer.Remove(gameObject);
             Destroy(gameObject);
         }
         else if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
@@ -238,7 +242,7 @@ public class StateManager : MonoBehaviour
                     else if (gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Attack)
                     {
                         Debug.Log("pass ball");
-                        
+
                         gameObject.GetComponent<StateManager>().moveBalltoNext();
                     }
                     else if (collider.gameObject.GetComponent<StateManager>().MyEnumMode == EnumMode.Defend)
@@ -270,7 +274,7 @@ public class StateManager : MonoBehaviour
     {
         if (isHaveBall && collider.gameObject.CompareTag("DetectArea"))
         {
-            Debug.Log("tien debug need to catch attacker");  
+            Debug.Log("tien debug need to catch attacker");
             if (!collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0)
                 .IsName("InactiveAnimation"))
                 collider.gameObject.GetComponentInParent<StateManager>().needCatchAttacker = true;
@@ -305,8 +309,7 @@ public class StateManager : MonoBehaviour
     private void moveBalltoNext()
     {
         //find neast active attacker
-        
-        
+
 
         if (MyKind == EnumKind.Enermy)
             nearestAttacker = findNearestAttacker(gameObject, GameManager.listAttacker);
@@ -317,7 +320,7 @@ public class StateManager : MonoBehaviour
         if (nearestAttacker == null)
         {
             // defender win
-            
+
             Debug.Log("tien debug defenfer win");
         }
         else if (StateManager.BallObject != null)
