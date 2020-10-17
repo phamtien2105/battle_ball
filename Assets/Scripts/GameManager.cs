@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-
     public Text CountText;
     private float timer;
     public float TimeLimit;
@@ -25,17 +23,18 @@ public class GameManager : MonoBehaviour
     public GameObject AttackerManager;
 
     private bool isBallCreate;
+
     private bool isKeyPressed;
     // Start is called before the first frame update
 
-    public  static int playerScore;
+    public static int playerScore;
 
-    public  static int enermyScore;
+    public static int enermyScore;
 
     public static bool isBallHItGate;
 
     public static bool NeedResetGame;
-    
+
     void Start()
     {
         isPLayerAttack = true;
@@ -51,7 +50,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // update timer text
         timer += Time.deltaTime;
         CountText.text = (int) timer + "s";
@@ -69,17 +67,15 @@ public class GameManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 1000f, enermy_mask))
             {
-
                 float attackerCost = Enermy.GetComponent<StateManager>().CostEnergy;
 
                 if (AttackerManager.GetComponent<EnergyController>().getCurrentEngery() >= attackerCost)
                 {
-                AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
-                GameObject attacker =
-                    Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
-                listEnermy.Add(attacker);
+                    AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
+                    GameObject attacker =
+                        Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
+                    listEnermy.Add(attacker);
                 }
-
             }
             else if (Physics.Raycast(ray, out hit, 1000f, layer_mask))
             {
@@ -87,12 +83,12 @@ public class GameManager : MonoBehaviour
 
                 if (PlayerManager.GetComponent<EnergyController>().getCurrentEngery() >= playerCost)
                 {
-                PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
-                GameObject player = Instantiate(Player, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
-                listPlayer.Add(player);
+                    PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
+                    GameObject player = Instantiate(Player, new Vector3(hit.point.x, 2f, hit.point.z),
+                        Quaternion.identity);
+                    listPlayer.Add(player);
                 }
             }
-
         }
 
         if (countMatch > 6)
@@ -138,13 +134,10 @@ public class GameManager : MonoBehaviour
 
     private void genertateBall()
     {
-
         GameObject ball;
         if (isPLayerAttack)
         {
-
             ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
-
         }
         else
         {
@@ -152,7 +145,6 @@ public class GameManager : MonoBehaviour
         }
 
         isBallCreate = true;
-
     }
 
 
@@ -162,17 +154,18 @@ public class GameManager : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-        
+
         foreach (var item in listEnermy)
         {
             item.gameObject.SetActive(false);
         }
+
         GameManager.listPlayer.Clear();
         GameManager.listEnermy.Clear();
         //clean energy
         PlayerManager.GetComponent<EnergyController>().Reset();
         AttackerManager.GetComponent<EnergyController>().Reset();
-        Destroy(Ball); 
+        Destroy(GameObject.FindWithTag("Ball"));
         genertateBall();
         countMatch++;
         if (countMatch == 1)
@@ -183,7 +176,5 @@ public class GameManager : MonoBehaviour
         {
             isPLayerAttack = !isPLayerAttack;
         }
-
     }
-
 }
