@@ -38,11 +38,7 @@ public class EnergyController : MonoBehaviour
 
     public void subEnergy(float value)
     {
-        // for (int i = 0; current >= value && i < value / valuePerSec; i++)
-        // {
-
         decreaseEnergy(value);
-        // }
     }
 
     public void decreaseEnergy(float value)
@@ -58,10 +54,16 @@ public class EnergyController : MonoBehaviour
         {
             float backupCurrentValue = listEnergyItem[position].GetComponent<BloodUnitController>().current;
             float remainValue = value - backupCurrentValue;
-            if (remainValue > 0 && position != 0)
-                decreaseEnergy(backupCurrentValue);
             listEnergyItem[position].GetComponent<BloodUnitController>().resetEmpty();
+            
+         
+
+            if (remainValue > 0 && position != 0)
+                decreaseEnergy(remainValue);
         }
+        
+        for ( int i = position + 1 ;i< listEnergyItem.Count;i++)
+            listEnergyItem[i].GetComponent<BloodUnitController>().resetEmpty();
     }
 
     int getItemPosition()
@@ -86,7 +88,7 @@ public class EnergyController : MonoBehaviour
         {
             return 4;
         }
-        else if (current > 25)
+        else if (current > 25 & current <= 30)
         {
             return 5;
         }
@@ -98,32 +100,50 @@ public class EnergyController : MonoBehaviour
     {
         isRunning = true;
         yield return new WaitForSeconds(1);
+
+
+        int position = getItemPosition();
+        //
+        float currentItemValue = listEnergyItem[position].GetComponent<BloodUnitController>().current;
+
+        if (currentItemValue + valuePerSec > CapPerUnit)
+        {
+            float needFillValue = CapPerUnit - currentItemValue;
+            listEnergyItem[position].GetComponent<BloodUnitController>().inCreaseEnergy(needFillValue);
+            listEnergyItem[position + 1].GetComponent<BloodUnitController>()
+                .inCreaseEnergy(valuePerSec - needFillValue);
+        }
+        else
+        {
+            listEnergyItem[position].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        }
+
         current += valuePerSec;
 
-        if (current <= 5)
-        {
-            listEnergyItem[0].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
-        else if (current > 5 && current <= 10)
-        {
-            listEnergyItem[1].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
-        else if (current > 10 & current <= 15)
-        {
-            listEnergyItem[2].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
-        else if (current > 15 & current <= 20)
-        {
-            listEnergyItem[3].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
-        else if (current > 20 & current <= 25)
-        {
-            listEnergyItem[4].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
-        else if (current > 25 & current <= 30)
-        {
-            listEnergyItem[5].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        }
+        // if (current <= 5)
+        // {
+        //     listEnergyItem[0].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
+        // else if (current > 5 && current <= 10)
+        // {
+        //     listEnergyItem[1].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
+        // else if (current > 10 & current <= 15)
+        // {
+        //     listEnergyItem[2].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
+        // else if (current > 15 & current <= 20)
+        // {
+        //     listEnergyItem[3].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
+        // else if (current > 20 & current <= 25)
+        // {
+        //     listEnergyItem[4].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
+        // else if (current > 25 & current <= 30)
+        // {
+        //     listEnergyItem[5].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
+        // }
 
         isRunning = false;
     }
