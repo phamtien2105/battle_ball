@@ -149,6 +149,13 @@ public class StateManager : MonoBehaviour
     private void moveToOpponentLand()
     {
         //rotate to target
+        // Vector3 rotationDestination = TargetGate.transform.position;
+        // Quaternion targetRotation = Quaternion.LookRotation(rotationDestination - transform.position, Vector3.up);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * CarryingSpeed);
+        Vector3 v3 = OpponentFence.gameObject.transform.position - transform.position;
+        v3.y = 0.0f;
+        
+        transform.rotation = Quaternion.LookRotation(-v3);
 
         //  Debug.Log("moveToOpponentLand" + TargetGate.transform.position);
         if (MyKind == EnumKind.Enermy)
