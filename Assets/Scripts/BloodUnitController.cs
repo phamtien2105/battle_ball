@@ -8,7 +8,7 @@ public class BloodUnitController : MonoBehaviour
     // Start is called before the first frame update
 
     private Image image;
-    float current;
+    public float current;
 
     void Start()
     {

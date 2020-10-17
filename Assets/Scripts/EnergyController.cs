@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnergyController : MonoBehaviour
 {
-
     public List<GameObject> listEnergyItem;
 
     public static int CapPerUnit = 5;
@@ -14,14 +13,14 @@ public class EnergyController : MonoBehaviour
 
     private float totalEnergy;
 
-    private float current = 0;
+    public float current = 0;
 
     bool isRunning = false;
+
     // Start is called before the first frame update
     void Start()
     {
         totalEnergy = listEnergyItem.Count * 5;
-
     }
 
     // Update is called once per frame
@@ -39,44 +38,60 @@ public class EnergyController : MonoBehaviour
 
     public void subEnergy(float value)
     {
-        for (int i = 0; i < value / valuePerSec; i++)
-        {
-            this.current -= valuePerSec;
-            decreaseEnergy(-1 * valuePerSec);
-        }
+        // for (int i = 0; current >= value && i < value / valuePerSec; i++)
+        // {
+
+        decreaseEnergy(value);
+        // }
     }
 
     public void decreaseEnergy(float value)
     {
+        int position = getItemPosition();
+
+        this.current -= value;
+        if (listEnergyItem[position].GetComponent<BloodUnitController>().current >= value)
+        {
+            listEnergyItem[position].GetComponent<BloodUnitController>().inCreaseEnergy(-1 * value);
+        }
+        else
+        {
+            float backupCurrentValue = listEnergyItem[position].GetComponent<BloodUnitController>().current;
+            float remainValue = value - backupCurrentValue;
+            if (remainValue > 0 && position != 0)
+                decreaseEnergy(backupCurrentValue);
+            listEnergyItem[position].GetComponent<BloodUnitController>().resetEmpty();
+        }
+    }
+
+    int getItemPosition()
+    {
         if (current <= 5)
         {
-            listEnergyItem[0].GetComponent<BloodUnitController>().inCreaseEnergy(value);
-            listEnergyItem[1].GetComponent<BloodUnitController>().resetEmpty();
+            return 0;
         }
         else if (current > 5 && current <= 10)
         {
-            listEnergyItem[1].GetComponent<BloodUnitController>().inCreaseEnergy(value);
-            listEnergyItem[2].GetComponent<BloodUnitController>().resetEmpty();
+            return 1;
         }
         else if (current > 10 & current <= 15)
         {
-            listEnergyItem[2].GetComponent<BloodUnitController>().inCreaseEnergy(value);
-            listEnergyItem[3].GetComponent<BloodUnitController>().resetEmpty();
+            return 2;
         }
         else if (current > 15 & current <= 20)
         {
-            listEnergyItem[3].GetComponent<BloodUnitController>().inCreaseEnergy(value);
-            listEnergyItem[4].GetComponent<BloodUnitController>().resetEmpty();
+            return 3;
         }
         else if (current > 20 & current <= 25)
         {
-            listEnergyItem[4].GetComponent<BloodUnitController>().inCreaseEnergy(value);
-            listEnergyItem[5].GetComponent<BloodUnitController>().resetEmpty();
+            return 4;
         }
         else if (current > 25)
         {
-            listEnergyItem[5].GetComponent<BloodUnitController>().inCreaseEnergy(value);
+            return 5;
         }
+
+        return 0;
     }
 
     IEnumerator inCreaseEnergy()
@@ -112,5 +127,4 @@ public class EnergyController : MonoBehaviour
 
         isRunning = false;
     }
-
 }
