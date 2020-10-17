@@ -89,23 +89,23 @@ public class EnergyController : MonoBehaviour
         {
             listEnergyItem[0].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
-        else if (current > 5 && current < 10)
+        else if (current > 5 && current <= 10)
         {
             listEnergyItem[1].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
-        else if (current > 10 & current < 15)
+        else if (current > 10 & current <= 15)
         {
             listEnergyItem[2].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
-        else if (current > 15 & current < 20)
+        else if (current > 15 & current <= 20)
         {
             listEnergyItem[3].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
-        else if (current > 20 & current < 25)
+        else if (current > 20 & current <= 25)
         {
             listEnergyItem[4].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
-        else if (current > 25 & current < 30)
+        else if (current > 25 & current <= 30)
         {
             listEnergyItem[5].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
         }
