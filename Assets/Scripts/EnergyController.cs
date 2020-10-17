@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,6 @@ public class EnergyController : MonoBehaviour
     //tien fake to test quick
     private float valuePerSec = 0.5f;
 
-    private float totalEnergy;
-
     public float current = 0;
 
     bool isRunning = false;
@@ -20,7 +19,7 @@ public class EnergyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        totalEnergy = listEnergyItem.Count * 5;
+        
     }
 
     // Update is called once per frame
@@ -120,31 +119,15 @@ public class EnergyController : MonoBehaviour
 
         current += valuePerSec;
 
-        // if (current <= 5)
-        // {
-        //     listEnergyItem[0].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-        // else if (current > 5 && current <= 10)
-        // {
-        //     listEnergyItem[1].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-        // else if (current > 10 & current <= 15)
-        // {
-        //     listEnergyItem[2].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-        // else if (current > 15 & current <= 20)
-        // {
-        //     listEnergyItem[3].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-        // else if (current > 20 & current <= 25)
-        // {
-        //     listEnergyItem[4].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-        // else if (current > 25 & current <= 30)
-        // {
-        //     listEnergyItem[5].GetComponent<BloodUnitController>().inCreaseEnergy(valuePerSec);
-        // }
-
         isRunning = false;
+    }
+
+    public void Reset()
+    {
+        current = 0;
+        foreach (var item in listEnergyItem)
+        {
+            item.GetComponent<BloodUnitController>().resetEmpty();
+        }
     }
 }

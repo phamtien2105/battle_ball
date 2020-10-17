@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,10 @@ public class GameManager : MonoBehaviour
 
     public Text CountText;
     private float timer;
-
+    public float TimeLimit;
+    private int MaxMatches = 5;
+    private int countMatch;
+    private bool isPLayerAttack;
     public GameObject Ball;
     public GameObject Player;
     public GameObject Enermy;
@@ -20,20 +24,28 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerManager;
     public GameObject AttackerManager;
 
-    // true is player attach. false attcker is attck
-    private bool isPlayerAttach;
-
     private bool isBallCreate;
     private bool isKeyPressed;
     // Start is called before the first frame update
+
+    public  static int playerScore;
+
+    public  static int enermyScore;
+
+    public static bool isBallHItGate;
+
+    public static bool NeedResetGame;
+    
     void Start()
     {
+        isPLayerAttack = true;
+        playerScore = enermyScore = 0;
         CountText.text = "0s";
         timer = 0;
         listPlayer = new List<GameObject>();
         listEnermy = new List<GameObject>();
-        isPlayerAttach = true;
-        genertateBall();
+        resetGame();
+        TimeLimit = 140;
     }
 
     // Update is called once per frame
@@ -42,7 +54,7 @@ public class GameManager : MonoBehaviour
 
         // update timer text
         timer += Time.deltaTime;
-        CountText.text = (int)timer + "s";
+        CountText.text = (int) timer + "s";
 
         //
         if (Input.GetMouseButtonDown(0))
@@ -62,9 +74,10 @@ public class GameManager : MonoBehaviour
 
                 if (AttackerManager.GetComponent<EnergyController>().getCurrentEngery() >= attackerCost)
                 {
-                    AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
-                    GameObject attacker = Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
-                    listEnermy.Add(attacker);
+                AttackerManager.GetComponent<EnergyController>().subEnergy(attackerCost);
+                GameObject attacker =
+                    Instantiate(Enermy, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
+                listEnermy.Add(attacker);
                 }
 
             }
@@ -74,15 +87,52 @@ public class GameManager : MonoBehaviour
 
                 if (PlayerManager.GetComponent<EnergyController>().getCurrentEngery() >= playerCost)
                 {
-                    PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
-                    GameObject player = Instantiate(Player, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
-                    listPlayer.Add(player);
+                PlayerManager.GetComponent<EnergyController>().subEnergy(playerCost);
+                GameObject player = Instantiate(Player, new Vector3(hit.point.x, 2f, hit.point.z), Quaternion.identity);
+                listPlayer.Add(player);
                 }
             }
 
         }
 
-        // find ball
+        if (countMatch > 6)
+        {
+            if (GameManager.playerScore < GameManager.enermyScore)
+            {
+                //game over
+                Debug.Log("game over");
+                Time.timeScale = 0;
+            }
+            else if (GameManager.playerScore > GameManager.enermyScore)
+            {
+                //player win
+                Debug.Log("player win");
+                Time.timeScale = 0;
+            }
+            else
+            {
+                //player win
+                Debug.Log("Penalty game");
+                Time.timeScale = 0;
+            }
+        }
+
+        // time out
+        if (timer > TimeLimit)
+        {
+            if (!isBallHItGate)
+            {
+                //game draw
+                Debug.Log("game draw");
+                Time.timeScale = 0;
+            }
+        }
+
+        if (NeedResetGame)
+        {
+            resetGame();
+            NeedResetGame = false;
+        }
     }
 
 
@@ -90,7 +140,7 @@ public class GameManager : MonoBehaviour
     {
 
         GameObject ball;
-        if (isPlayerAttach)
+        if (isPLayerAttack)
         {
 
             ball = Instantiate(Ball, new Vector3(0, 2f, 0), Quaternion.identity);
@@ -102,6 +152,37 @@ public class GameManager : MonoBehaviour
         }
 
         isBallCreate = true;
+
+    }
+
+
+    private void resetGame()
+    {
+        foreach (var item in listPlayer)
+        {
+            item.gameObject.SetActive(false);
+        }
+        
+        foreach (var item in listEnermy)
+        {
+            item.gameObject.SetActive(false);
+        }
+        GameManager.listPlayer.Clear();
+        GameManager.listEnermy.Clear();
+        //clean energy
+        PlayerManager.GetComponent<EnergyController>().Reset();
+        PlayerManager.GetComponent<EnergyController>().Reset();
+        Destroy(Ball); 
+        genertateBall();
+        countMatch++;
+        if (countMatch == 1)
+        {
+            isPLayerAttack = true;
+        }
+        else
+        {
+            isPLayerAttack = !isPLayerAttack;
+        }
 
     }
 

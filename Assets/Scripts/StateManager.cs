@@ -56,6 +56,7 @@ public class StateManager : MonoBehaviour
 
     public bool returnOriginPositionAfterMove;
 
+
     void Start()
     {
         isHaveBall = false;
@@ -199,8 +200,16 @@ public class StateManager : MonoBehaviour
         {
             Debug.Log("win");
             //destroy attacker if hit to the fence
+            GameManager.isBallHItGate = true;
+           // Time.timeScale = 0;
 
-            Time.timeScale = 0;
+            if (MyKind == EnumKind.Enermy)
+            {
+                GameManager.enermyScore++;
+            }
+            else GameManager.playerScore++;
+
+            GameManager.NeedResetGame = true;
             //  Destroy(gameObject);
         }
         else if (collider.gameObject.CompareTag("Fence"))
@@ -355,7 +364,16 @@ public class StateManager : MonoBehaviour
             // defender win
 
             Debug.Log("tien debug defenfer win");
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            if (MyKind == EnumKind.Enermy)
+            {
+                GameManager.enermyScore++;
+            }
+            else GameManager.playerScore++;
+
+            GameManager.NeedResetGame = true;
+
+
         }
         else if (StateManager.BallObject != null)
         {
