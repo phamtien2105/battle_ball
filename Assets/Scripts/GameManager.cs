@@ -163,8 +163,8 @@ public class GameManager : MonoBehaviour
         GameManager.listPlayer.Clear();
         GameManager.listEnermy.Clear();
         //clean energy
-        PlayerManager.GetComponent<EnergyController>().Reset();
-        AttackerManager.GetComponent<EnergyController>().Reset();
+        //     PlayerManager.GetComponent<EnergyController>().Reset();
+        //   AttackerManager.GetComponent<EnergyController>().Reset();
         Destroy(GameObject.FindWithTag("Ball"));
         genertateBall();
         countMatch++;
