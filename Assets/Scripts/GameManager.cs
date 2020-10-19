@@ -16,9 +16,6 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject Enermy;
 
-    public GameObject PlayerPlane;
-    public GameObject EnermyPlane;
-
     public static List<GameObject> listPlayer;
     public static List<GameObject> listEnermy;
 
@@ -83,6 +80,7 @@ public class GameManager : MonoBehaviour
                     {
                         attacker.GetComponent<StateManager>().MyEnumPLayMode = StateManager.EnumPLayMode.Attacker;
                     }
+
                     listEnermy.Add(attacker);
                 }
             }
@@ -101,6 +99,7 @@ public class GameManager : MonoBehaviour
                     {
                         player.GetComponent<StateManager>().MyEnumPLayMode = StateManager.EnumPLayMode.Defender;
                     }
+
                     listPlayer.Add(player);
                 }
             }
@@ -150,35 +149,25 @@ public class GameManager : MonoBehaviour
     private void genertateBall()
     {
         GameObject ball;
-        float x_dim;
-        float z_dim;
 
 
         if (isPLayerAttack)
         {
-            Mesh planeMesh = PlayerPlane.GetComponent<MeshFilter>().mesh;
-            Bounds bounds = planeMesh.bounds;
-            x_dim = PlayerPlane.transform.localScale.x * bounds.size.x;
-            z_dim = PlayerPlane.transform.localScale.z * bounds.size.z;
 
-            ball = Instantiate(Ball, new Vector3(Random.value*PlayerPlane.transform.position.x, 2f, Random.value*PlayerPlane.transform.position.z), Quaternion.identity, PlayerPlane.transform);
+
+            Vector3 pos = new Vector3(Random.Range(-4.8f, 4.8f), 2f,
+                Random.Range(-8.32f, 1f));
+
+            ball = Instantiate(Ball, pos, Quaternion.identity);
         }
         else
         {
-            Mesh planeMesh = EnermyPlane.GetComponent<MeshFilter>().mesh;
-            Bounds bounds = planeMesh.bounds;
-            x_dim = EnermyPlane.transform.localScale.x * bounds.size.x;
-            z_dim = EnermyPlane.transform.localScale.z * bounds.size.z;
-            ball = Instantiate(Ball, new Vector3(Random.value*EnermyPlane.transform.position.x, 2f, Random.value*EnermyPlane.transform.position.z), Quaternion.identity, EnermyPlane.transform);
+            Vector3 pos = new Vector3(Random.Range(-4.8f, 4.8f), 2f,
+                Random.Range(1.31f, 10.7f));
+
+            ball = Instantiate(Ball, pos, Quaternion.identity);
         }
 
-        var x_rand = Random.Range(-x_dim, x_dim);
-        var z_rand = Random.Range(-z_dim, z_dim);
-
-        //ball.transform.position = new Vector3(x_rand, 0, z_rand);
-
-        // Now unassign the parent
-        // ball.transform.parent = null;
 
         isBallCreate = true;
     }

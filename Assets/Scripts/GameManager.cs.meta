@@ -3,7 +3,15 @@ guid: 8342a4749bfb5074b888756a799e6fba
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CountText: {instanceID: 0}
+  - Ball: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - Enermy: {instanceID: 0}
+  - PlayerPlane: {instanceID: 0}
+  - EnermyPlane: {instanceID: 0}
+  - PlayerManager: {instanceID: 0}
+  - AttackerManager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

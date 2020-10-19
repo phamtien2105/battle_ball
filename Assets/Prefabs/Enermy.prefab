@@ -133,7 +133,7 @@ MonoBehaviour:
   CostEnergy: 2
   InActiveTime: 0.5
   SpeedWithBall: 0.75
-  MyEnumPLayMode: 1
+  MyEnumPLayMode: 0
   MyKind: 1
   isHaveBall: 0
   NormalSpeed: 1.5
