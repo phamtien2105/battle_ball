@@ -620,12 +620,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083206811}
   m_CullTransparentMesh: 0
---- !u!1 &1249883253 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6241377590452325885, guid: a41cbfe6b0cb5489b8c3438cc162c8bd,
-    type: 3}
-  m_PrefabInstance: {fileID: 6241377591350081928}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1309677154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 949547829608333358, guid: d146364d4f2dee34987b34e6fafdc39d,
@@ -919,8 +913,6 @@ MonoBehaviour:
   Ball: {fileID: 1975457108487340, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
   Player: {fileID: 4437695554890507188, guid: 575811749f890024b8046badbe1a0116, type: 3}
   Enermy: {fileID: 1466840646100663203, guid: 87127139c3257874b9c0f26674f50212, type: 3}
-  PlayerPlane: {fileID: 2105780644}
-  EnermyPlane: {fileID: 1249883253}
   PlayerManager: {fileID: 1471078817}
   AttackerManager: {fileID: 4012287823988330260}
 --- !u!1 &1652935142
@@ -1091,12 +1083,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082575741}
   m_CullTransparentMesh: 0
---- !u!1 &2105780644 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6241377590184153132, guid: a41cbfe6b0cb5489b8c3438cc162c8bd,
-    type: 3}
-  m_PrefabInstance: {fileID: 6241377591350081928}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4012287823988330259
 PrefabInstance:
   m_ObjectHideFlags: 0
