@@ -19,7 +19,6 @@ public class EnergyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -54,14 +53,13 @@ public class EnergyController : MonoBehaviour
             float backupCurrentValue = listEnergyItem[position].GetComponent<BloodUnitController>().current;
             float remainValue = value - backupCurrentValue;
             listEnergyItem[position].GetComponent<BloodUnitController>().resetEmpty();
-            
-         
+
 
             if (remainValue > 0 && position != 0)
                 decreaseEnergy(remainValue);
         }
-        
-        for ( int i = position + 1 ;i< listEnergyItem.Count;i++)
+
+        for (int i = position + 1; i < listEnergyItem.Count; i++)
             listEnergyItem[i].GetComponent<BloodUnitController>().resetEmpty();
     }
 
@@ -109,8 +107,9 @@ public class EnergyController : MonoBehaviour
         {
             float needFillValue = CapPerUnit - currentItemValue;
             listEnergyItem[position].GetComponent<BloodUnitController>().inCreaseEnergy(needFillValue);
-            listEnergyItem[position + 1].GetComponent<BloodUnitController>()
-                .inCreaseEnergy(valuePerSec - needFillValue);
+            if (position + 1 <= listEnergyItem.Count)
+                listEnergyItem[position + 1].GetComponent<BloodUnitController>()
+                    .inCreaseEnergy(valuePerSec - needFillValue);
         }
         else
         {
