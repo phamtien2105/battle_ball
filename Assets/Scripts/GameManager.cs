@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Vector3 pos = new Vector3(Random.Range(-4.8f, 4.8f), 2f,
-                Random.Range(1.31f, 10.7f));
+                Random.Range( 1.31f, 10.7f));
 
             ball = Instantiate(Ball, pos, Quaternion.identity);
         }
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         //     PlayerManager.GetComponent<EnergyController>().Reset();
         //   AttackerManager.GetComponent<EnergyController>().Reset();
         Destroy(GameObject.FindWithTag("Ball"));
-        genertateBall();
+       
         countMatch++;
         if (countMatch == 1)
         {
@@ -201,5 +201,6 @@ public class GameManager : MonoBehaviour
         {
             isPLayerAttack = !isPLayerAttack;
         }
+        genertateBall();
     }
 }
